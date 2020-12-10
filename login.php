@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once (dirname(__FILE__). '/function.php');
 unloginedSession();
 
@@ -22,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$dbh = dbConnect();
 		$sql = 'SELECT * FROM con1_users WHERE mail = :mail';
 		$stmt = $dbh->prepare($sql);
-		$stmt->bindParam(':mail', $mail, PDO::PARAM_STR);
+		$stmt->bindValue(':mail', $mail, PDO::PARAM_STR);
 		$stmt->execute();
 		$user = $stmt->fetch();
 		if ($user ==! false) {
@@ -30,7 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$_SESSION['id'] = $user['id'];
 				$_SESSION['name'] = $user['name'];
 				$_SESSION['class'] = $user['class'];
-				header('Location: https://procir-study.site/ishibashi331/christmas_app/mypage.php');
+				setFlash('flash_message', 'ログインしました');
+				header('Location: index.php');
 				exit;
 			} else {
 				$error_messages['password'] = '※パスワードが間違っています';
@@ -41,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	}
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -62,6 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <p><?php if (!empty($error_messages['password'])) echo $error_messages['password']; ?></p>
 <input type="submit" value="ログイン">
 </form><br>
-<a href="user_create.php">新規登録</a><br>
+<a href="create_user.php">新規登録</a><br>
 </body>
 </html>
