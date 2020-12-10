@@ -28,18 +28,34 @@ function dbConnect() {
 
 // 認証
 function unloginedsession() {
-	session_start();
+	@session_start();
 	// ログインしていれば / に遷移
 	if (isset($_SESSION['id'])) {
-		header('Location: /');
+		header('Location: mypage.php');
 		exit;
 	}
 }
 function loginedSession() {
-	session_start();
+	@session_start();
 	// ログインしていなければ /login.php に遷移
 	if (!isset($_SESSION['id'])) {
-		header('Location: /login.php');
+		header('Location: login.php');
 		exit;
 	}
+}
+
+// フラッシュメッセージをセット
+function setFlash($type, $message) {
+	@session_start();
+	$_SESSION[$type] = $message;
+}
+// フラッシュメッセージを取得
+function getFlash($type) {
+	@session_start();
+	$message = '';
+	if (!empty($_SESSION[$type])) {
+		$message = $_SESSION[$type];
+		unset($_SESSION[$type]);
+	}
+	return $message;
 }
