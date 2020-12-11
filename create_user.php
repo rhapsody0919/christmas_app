@@ -13,28 +13,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$error_messages['class'] = 'プロサー期を選択してください';
 	}
 	if (empty($_POST['name'])) {
-		$error_messages['name'] = '*ニックネームを入力してください';
+		$error_messages['name'] = '※ニックネームを入力してください';
 	} elseif (mb_strlen($_POST['name']) > 25) {
-		$error_messages['name'] = '*ニックネームは25文字以下で入力してください';
+		$error_messages['name'] = '※ニックネームは25文字以下で入力してください';
 	}
 	if (empty($_POST['mail'])) {
-		$error_messages['mail'] = '*メールアドレスを入力してください';
+		$error_messages['mail'] = '※メールアドレスを入力してください';
 	} elseif (!filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
 		$error_messages['mail'] = '*Email形式を入力してください';
 	} elseif (mb_strlen($_POST['mail']) > 255 || mb_strlen($_POST['mail']) < 3) {
-		$error_messages['mail'] = '*メールアドレスは3文字以上255文字以下で入力してください';
+		$error_messages['mail'] = '※メールアドレスは3文字以上255文字以下で入力してください';
 	}
 	if (empty($_POST['password'])) {
-		$error_messages['password'] = '*パスワードを入力してください';
+		$error_messages['password'] = '※パスワードを入力してください';
 	} elseif (!preg_match(('/^[0-9a-zA-Z]+$/'), $_POST['password'])) {
-		$error_messages['password'] = '*半角英数字で入力してください';
+		$error_messages['password'] = '※半角英数字で入力してください';
 	} elseif (mb_strlen($_POST['password']) > 100 || mb_strlen($_POST['password']) < 8) {
-		$error_messages['password'] = '*パスワードは8文字以上100文字以下で入力してください';
+		$error_messages['password'] = '※パスワードは8文字以上100文字以下で入力してください';
 	}
 	if (empty($_POST['matching'])) {
-		$error_messages['matching'] = '*zoomマッチングが未選択です';
+		$error_messages['matching'] = '※zoomマッチングが未選択です';
 	} elseif ($_POST['matching'] ==! 'yes' || $_POST['matching'] ==! 'no') {
-		$error_messages['matching'] = '*zoomマッチングが未選択です';
+		$error_messages['matching'] = '※zoomマッチングが未選択です';
 	}
 
 	if (empty($error_messages)) {
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			header('Location: index.php');
 			exit;
 		} else {
-			$error_messages['mail'] = '*メールアドレスが使用できません';
+			$error_messages['mail'] = '※メールアドレスが使用できません';
 		}
 	}
 }
