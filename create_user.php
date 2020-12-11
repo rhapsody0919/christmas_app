@@ -24,16 +24,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	} elseif (mb_strlen($_POST['mail']) > 255 || mb_strlen($_POST['mail']) < 3) {
 		$error_messages['mail'] = '※メールアドレスは3文字以上255文字以下で入力してください';
 	}
-	if (empty($_POST['password'])) {
-		$error_messages['password'] = '※パスワードを入力してください';
-	} elseif (!preg_match(('/^[0-9a-zA-Z]+$/'), $_POST['password'])) {
-		$error_messages['password'] = '※半角英数字で入力してください';
-	} elseif (mb_strlen($_POST['password']) > 100 || mb_strlen($_POST['password']) < 8) {
-		$error_messages['password'] = '※パスワードは8文字以上100文字以下で入力してください';
+	if (empty($_POST['password1'])) {
+		$error_messages['password1'] = '※パスワードを入力してください';
+	} elseif (!preg_match(('/^[0-9a-zA-Z]+$/'), $_POST['password1'])) {
+		$error_messages['password1'] = '※半角英数字で入力してください';
+	} elseif (mb_strlen($_POST['password1']) > 100 || mb_strlen($_POST['password1']) < 8) {
+		$error_messages['password1'] = '※パスワードは8文字以上100文字以下で入力してください';
+	} elseif (empty($_POST['password2'])) {
+		$error_messages['password2'] = '※確認用パスワードを入力してください';
+	} elseif ($_POST['password1'] !== $_POST['password2']) {
+		$error_messages['password2'] = '※パスワードが一致しません';
 	}
 	if (empty($_POST['matching'])) {
 		$error_messages['matching'] = '※zoomマッチングが未選択です';
-	} elseif ($_POST['matching'] ==! 'yes' || $_POST['matching'] ==! 'no') {
+	} elseif ($_POST['matching'] !== 'yes' || $_POST['matching'] !== 'no') {
 		$error_messages['matching'] = '※zoomマッチングが未選択です';
 	}
 
@@ -41,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$class = (int)$_POST['class'];
 		$name = $_POST['name'];
 		$mail = $_POST['mail'];
-		$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+		$password = password_hash($_POST['password1'], PASSWORD_DEFAULT);
 		$matching = $_POST['matching'];
 		if ($matching === 'yes') {
 			$matching = 1;
@@ -109,9 +113,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </label><br>
 <p><?php if (!empty($error_messages['mail'])) echo $error_messages['mail']; ?></p>
 <label>パスワード<br>
-<input type="password" name="password">
+<input type="password" name="password1">
 </label><br>
-<p><?php if (!empty($error_messages['password'])) echo $error_messages['password']; ?></p>
+<p><?php if (!empty($error_messages['password1'])) echo $error_messages['password1']; ?></p>
+<label>パスワード(確認用)<br>
+<input type="password" name="password2">
+</label><br>
+<p><?php if (!empty($error_messages['password2'])) echo $error_messages['password2']; ?></p>
 <p>zoomマッチングを行う<br>
 <input type="radio" name="matching" value="yes" checked="checked">する
 <input type="radio" name="matching" value="no">しない

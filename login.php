@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$stmt->bindValue(':mail', $mail, PDO::PARAM_STR);
 		$stmt->execute();
 		$user = $stmt->fetch();
-		if ($user ==! false) {
+		if ($user !== false) {
 			if (password_verify($password, $user['pass'])) {
 				$_SESSION['id'] = $user['id'];
 				$_SESSION['name'] = $user['name'];
