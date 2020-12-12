@@ -33,7 +33,7 @@ function dbConnect() {
 	try {
 		$pdo = new PDO($dsn, $username, $password);
 	} catch (PDOException $e) {
-		error_log('error:' . $e->getMessage();
+		error_log('error:' . $e->getMessage());
 		exit;
 	}
 	return $pdo;
