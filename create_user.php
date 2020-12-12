@@ -13,41 +13,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$error_messages['class'] = 'プロサー期を選択してください';
 	}
 	if (empty($_POST['name'])) {
-		$error_messages['name'] = '*ニックネームを入力してください';
+		$error_messages['name'] = '※ニックネームを入力してください';
 	} elseif (mb_strlen($_POST['name']) > 25) {
-		$error_messages['name'] = '*ニックネームは25文字以下で入力してください';
+		$error_messages['name'] = '※ニックネームは25文字以下で入力してください';
 	}
 	if (empty($_POST['mail'])) {
-		$error_messages['mail'] = '*メールアドレスを入力してください';
+		$error_messages['mail'] = '※メールアドレスを入力してください';
 	} elseif (!filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
 		$error_messages['mail'] = '*Email形式を入力してください';
 	} elseif (mb_strlen($_POST['mail']) > 255 || mb_strlen($_POST['mail']) < 3) {
-		$error_messages['mail'] = '*メールアドレスは3文字以上255文字以下で入力してください';
+		$error_messages['mail'] = '※メールアドレスは3文字以上255文字以下で入力してください';
 	}
-	if (empty($_POST['password'])) {
-		$error_messages['password'] = '*パスワードを入力してください';
-	} elseif (!preg_match(('/^[0-9a-zA-Z]+$/'), $_POST['password'])) {
-		$error_messages['password'] = '*半角英数字で入力してください';
-	} elseif (mb_strlen($_POST['password']) > 100 || mb_strlen($_POST['password']) < 8) {
-		$error_messages['password'] = '*パスワードは8文字以上100文字以下で入力してください';
+	if (empty($_POST['password1'])) {
+		$error_messages['password1'] = '※パスワードを入力してください';
+	} elseif (!preg_match(('/^[0-9a-zA-Z]+$/'), $_POST['password1'])) {
+		$error_messages['password1'] = '※半角英数字で入力してください';
+	} elseif (mb_strlen($_POST['password1']) > 100 || mb_strlen($_POST['password1']) < 8) {
+		$error_messages['password1'] = '※パスワードは8文字以上100文字以下で入力してください';
+	} elseif (empty($_POST['password2'])) {
+		$error_messages['password2'] = '※確認用パスワードを入力してください';
+	} elseif ($_POST['password1'] !== $_POST['password2']) {
+		$error_messages['password2'] = '※パスワードが一致しません';
 	}
-	if (empty($_POST['matching'])) {
-		$error_messages['matching'] = '*zoomマッチングが未選択です';
-	} elseif ($_POST['matching'] ==! 'yes' || $_POST['matching'] ==! 'no') {
-		$error_messages['matching'] = '*zoomマッチングが未選択です';
-	}
-
 	if (empty($error_messages)) {
 		$class = (int)$_POST['class'];
 		$name = $_POST['name'];
 		$mail = $_POST['mail'];
-		$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-		$matching = $_POST['matching'];
-		if ($matching === 'yes') {
-			$matching = 1;
-		} else {
-			$matching = 0;
-		}
+		$password = password_hash($_POST['password1'], PASSWORD_DEFAULT);
 		$dbh = dbConnect();
 		$sql = 'SELECT * FROM con1_users WHERE mail = :mail';
 		$stmt = $dbh->prepare($sql);
@@ -55,13 +47,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$stmt->execute();
 		$result = $stmt->fetch();
 		if ($result === false) {
-			$sql = 'INSERT INTO con1_users(name, class, mail, pass, matching) VALUES(:name, :class, :mail, :password, :matching)';
+			$sql = 'INSERT INTO con1_users(name, class, mail, pass) VALUES(:name, :class, :mail, :password)';
 			$stmt = $dbh->prepare($sql);
 			$stmt->bindValue(':name', $name, PDO::PARAM_STR);
 			$stmt->bindValue(':class', $class, PDO::PARAM_INT);
 			$stmt->bindValue(':mail', $mail, PDO::PARAM_STR);
 			$stmt->bindValue(':password', $password, PDO::PARAM_STR);
-			$stmt->bindValue(':matching', $matching, PDO::PARAM_INT);
 			$stmt->execute();
 			$sql = 'SELECT * FROM con1_users WHERE mail = :mail';
 			$stmt = $dbh->prepare($sql);
@@ -75,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			header('Location: index.php');
 			exit;
 		} else {
-			$error_messages['mail'] = '*メールアドレスが使用できません';
+			$error_messages['mail'] = '※メールアドレスが使用できません';
 		}
 	}
 }
@@ -109,14 +100,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </label><br>
 <p><?php if (!empty($error_messages['mail'])) echo $error_messages['mail']; ?></p>
 <label>パスワード<br>
-<input type="password" name="password">
+<input type="password" name="password1">
 </label><br>
-<p><?php if (!empty($error_messages['password'])) echo $error_messages['password']; ?></p>
-<p>zoomマッチングを行う<br>
-<input type="radio" name="matching" value="yes" checked="checked">する
-<input type="radio" name="matching" value="no">しない
-</p>
-<p><?php if (!empty($error_messages['matching'])) echo $error_messages['matching']; ?></p>
+<p><?php if (!empty($error_messages['password1'])) echo $error_messages['password1']; ?></p>
+<label>パスワード(確認用)<br>
+<input type="password" name="password2">
+</label><br>
+<p><?php if (!empty($error_messages['password2'])) echo $error_messages['password2']; ?></p>
 <input type="submit" value="登録する">
 </form><br>
 <a href="login.php">ログイン</a><br>

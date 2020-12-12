@@ -5,6 +5,19 @@ require (dirname(__FILE__) . '/vendor/autoload.php');
 $dotenv = Dotenv\Dotenv :: createImmutable(__DIR__);
 $dotenv->load();
 
+// errorログをとる
+ini_set('log_errors','on');
+ini_set('error_log','php.log');
+
+// デバッグフラグ
+$debug_flg = false;
+//デバッグ書き込み
+function debug($str){
+	global $debug_flg;
+	if ($debug_flg) {
+		error_log('デバッグ：' . $str);
+	}
+}
 
 // エンティティ化
 function h($s) {
@@ -20,14 +33,14 @@ function dbConnect() {
 	try {
 		$pdo = new PDO($dsn, $username, $password);
 	} catch (PDOException $e) {
-		echo 'DBerror'  . $e->getMessage();
+		error_log('error:' . $e->getMessage());
 		exit;
 	}
 	return $pdo;
 }
 
 // 認証
-function unloginedsession() {
+function unloginedSession() {
 	@session_start();
 	// ログインしていれば / に遷移
 	if (isset($_SESSION['id'])) {
