@@ -40,7 +40,7 @@ function dbConnect() {
 }
 
 // 認証
-function unloginedsession() {
+function unloginedSession() {
 	@session_start();
 	// ログインしていれば / に遷移
 	if (isset($_SESSION['id'])) {
