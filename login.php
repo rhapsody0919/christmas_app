@@ -33,10 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				header('Location: index.php');
 				exit;
 			} else {
-				$error_messages['password'] = '※パスワードが間違っています';
+				$error_messages['name'] = '※ニックネームまたはパスワードが違います';
 			}
 		} else {
-			$error_messages['name'] = '※ニックネームを正しく入力してください';
+			$error_messages['name'] = '※ニックネームまたはパスワードが違います';
 		}
 	}
 }
