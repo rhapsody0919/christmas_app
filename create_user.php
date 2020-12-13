@@ -8,9 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	// バリデーションチェック
 	$error_messages = [];
 	if (!isset($_POST['class'])) {
-		$error_messages['class'] = 'プロサー期を選択してください';
+		$error_messages['class'] = '期を選択してください';
 	} elseif ((int)$_POST['class'] > 14 || (int)$_POST['class'] === 9) {
-		$error_messages['class'] = 'プロサー期を選択してください';
+		$error_messages['class'] = '期を選択してください';
 	}
 	if (empty($_POST['name'])) {
 		$error_messages['name'] = '※ニックネームを入力してください';
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 <h1>ユーザー新規登録</h1>
 <form action="create_user.php" method="post">
-<label>プロサー何期生<br>
+<label>期選択<br>
 <select name="class">
 <?php for ($i=1; $i<=14; $i++) : ?>
 <?php if ($i === 9) continue; ?>
