@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			header('Location: index.php');
 			exit;
 		} else {
-			$error_messages['mail'] = '※ニックネームまたはパスワードが違います。';
+			$error_messages['name'] = '※ニックネームは既に使用されています';
 		}
 	}
 }
