@@ -17,13 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	} elseif (mb_strlen($_POST['name']) > 25) {
 		$error_messages['name'] = '※ニックネームは25文字以下で入力してください';
 	}
-	if (empty($_POST['mail'])) {
-		$error_messages['mail'] = '※メールアドレスを入力してください';
-	} elseif (!filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
-		$error_messages['mail'] = '*Email形式を入力してください';
-	} elseif (mb_strlen($_POST['mail']) > 255 || mb_strlen($_POST['mail']) < 3) {
-		$error_messages['mail'] = '※メールアドレスは3文字以上255文字以下で入力してください';
-	}
 	if (empty($_POST['password1'])) {
 		$error_messages['password1'] = '※パスワードを入力してください';
 	} elseif (!preg_match(('/^[0-9a-zA-Z]+$/'), $_POST['password1'])) {
@@ -38,25 +31,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if (empty($error_messages)) {
 		$class = (int)$_POST['class'];
 		$name = $_POST['name'];
-		$mail = $_POST['mail'];
 		$password = password_hash($_POST['password1'], PASSWORD_DEFAULT);
 		$dbh = dbConnect();
-		$sql = 'SELECT * FROM con1_users WHERE mail = :mail';
+		$sql = 'SELECT * FROM con1_users WHERE name = :name';
 		$stmt = $dbh->prepare($sql);
-		$stmt->bindValue(':mail', $mail);
+		$stmt->bindValue(':name', $name);
 		$stmt->execute();
 		$result = $stmt->fetch();
 		if ($result === false) {
-			$sql = 'INSERT INTO con1_users(name, class, mail, pass) VALUES(:name, :class, :mail, :password)';
+			$sql = 'INSERT INTO con1_users(name, class, pass) VALUES(:name, :class, :password)';
 			$stmt = $dbh->prepare($sql);
 			$stmt->bindValue(':name', $name, PDO::PARAM_STR);
 			$stmt->bindValue(':class', $class, PDO::PARAM_INT);
-			$stmt->bindValue(':mail', $mail, PDO::PARAM_STR);
 			$stmt->bindValue(':password', $password, PDO::PARAM_STR);
 			$stmt->execute();
-			$sql = 'SELECT * FROM con1_users WHERE mail = :mail';
+			$sql = 'SELECT * FROM con1_users WHERE name = :name';
 			$stmt = $dbh->prepare($sql);
-			$stmt->bindValue(':mail', $mail);
+			$stmt->bindValue(':name', $name);
 			$stmt->execute();
 			$user = $stmt->fetch();
 			$_SESSION['id'] = $user['id'];
@@ -66,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			header('Location: index.php');
 			exit;
 		} else {
-			$error_messages['mail'] = '※メールアドレスが使用できません';
+			$error_messages['mail'] = '※ニックネームまたはパスワードが違います。';
 		}
 	}
 }
@@ -92,22 +83,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <br>
 <p><?php if (!empty($error_messages['class'])) echo $error_messages['class']; ?></p>
 <label>ニックネーム<br>
-<input type="text" name="name">
+<input type="text" name="name" required>
 </label><br>
 <p><?php if (!empty($error_messages['name'])) echo $error_messages['name']; ?></p>
-<label>メールアドレス<br>
-<input type="email" name="mail">
-</label><br>
-<p><?php if (!empty($error_messages['mail'])) echo $error_messages['mail']; ?></p>
 <label>パスワード<br>
-<input type="password" name="password1">
+<input type="password" name="password1" required>
 </label><br>
 <p><?php if (!empty($error_messages['password1'])) echo $error_messages['password1']; ?></p>
 <label>パスワード(確認用)<br>
-<input type="password" name="password2">
+<input type="password" name="password2" required>
 </label><br>
 <p><?php if (!empty($error_messages['password2'])) echo $error_messages['password2']; ?></p>
-<input type="submit" value="登録する">
+<input type="submit" value="登録する" required>
 </form><br>
 <a href="login.php">ログイン</a><br>
 </body>
