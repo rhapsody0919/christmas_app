@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$_SESSION['id'] = $user['id'];
 				$_SESSION['name'] = $user['name'];
 				$_SESSION['class'] = $user['class'];
+				$_SESSION['slack_id'] = $user['slack_id'];
 				setFlash('flash_message', 'ログインしました');
 				header('Location: index.php');
 				exit;
