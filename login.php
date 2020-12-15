@@ -6,10 +6,8 @@ unloginedSession();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	// バリデーションチェック
 	$error_messages = [];
-	if (empty($_POST['mail'])) {
-		$error_messages['mail'] = '※メールアドレスを入力してください';
-	} elseif (!filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
-		$error_messages['mail'] = '※Email形式を入力してください';
+	if (empty($_POST['name'])) {
+		$error_messages['name'] = '※ニックネームを入力してください';
 	}
 	if (empty($_POST['password'])) {
 		$error_messages['password'] = '※パスワードを入力してください';
@@ -18,12 +16,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	}
 
 	if (empty($error_messages)) {
-		$mail = $_POST['mail'];
+		$name = $_POST['name'];
 		$password = $_POST['password'];
 		$dbh = dbConnect();
-		$sql = 'SELECT * FROM con1_users WHERE mail = :mail';
+		$sql = 'SELECT * FROM con1_users WHERE name = :name';
 		$stmt = $dbh->prepare($sql);
-		$stmt->bindValue(':mail', $mail, PDO::PARAM_STR);
+		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
 		$stmt->execute();
 		$user = $stmt->fetch();
 		if ($user !== false) {
@@ -31,14 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$_SESSION['id'] = $user['id'];
 				$_SESSION['name'] = $user['name'];
 				$_SESSION['class'] = $user['class'];
+				$_SESSION['slack_id'] = $user['slack_id'];
 				setFlash('flash_message', 'ログインしました');
 				header('Location: index.php');
 				exit;
 			} else {
-				$error_messages['password'] = '※パスワードが間違っています';
+				$error_messages['name'] = '※ニックネームまたはパスワードが違います';
 			}
 		} else {
-			$error_messages['mail'] = '※メールアドレスを正しく入力してください';
+			$error_messages['name'] = '※ニックネームまたはパスワードが違います';
 		}
 	}
 }
@@ -54,13 +53,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 <h1>ログイン</h1>
 <form action="login.php" method="post">
-<p>メールアドレスとパスワードを入力してください</p>
-<label>メールアドレス<br>
-<input type="email" name="mail">
+<p>ニックネームとパスワードを入力してください</p>
+<label>ニックネーム<br>
+<input type="text" name="name" required>
 </label><br>
-<p><?php if (!empty($error_messages['mail'])) echo $error_messages['mail']; ?></p>
+<p><?php if (!empty($error_messages['name'])) echo $error_messages['name']; ?></p>
 <label>パスワード<br>
-<input type="password" name="password">
+<input type="password" name="password" required>
 </label><br>
 <p><?php if (!empty($error_messages['password'])) echo $error_messages['password']; ?></p>
 <input type="submit" value="ログイン">
