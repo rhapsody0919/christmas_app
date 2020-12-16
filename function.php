@@ -2,7 +2,8 @@
 require (dirname(__FILE__) . '/vendor/autoload.php');
 
 //.envの保存場所指定（カレントに設定）
-$dotenv = Dotenv\Dotenv :: createImmutable(__DIR__);
+//$dotenv = Dotenv\Dotenv :: createImmutable(__DIR__);
+$dotenv = Dotenv\Dotenv :: createUnsafeImmutable(__DIR__);
 $dotenv->load();
 
 // errorログをとる
@@ -26,9 +27,10 @@ function h($s) {
 
 // データベース接続
 function dbConnect() {
-	$dsn = $_ENV['DB_CONNECTION'] . ':host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_DATABASE'] . ';charset=utf8';
-	$username = $_ENV['DB_USERNAME'];
-	$password = $_ENV['DB_PASSWORD'];
+	$dsn = getenv('DB_CONNECTION') . ':host=' . getenv('DB_HOST') . ';dbname=' . getenv('DB_DATABASE') . ';charset=utf8';
+	$username = getenv('DB_USERNAME');
+	$password = getenv('DB_PASSWORD');
+
 	$pdo = new PDO($dsn, $username, $password);
 	try {
 		$pdo = new PDO($dsn, $username, $password);
@@ -63,7 +65,7 @@ function setFlash($type, $message) {
 	$_SESSION[$type] = $message;
 }
 // フラッシュメッセージを取得
-function getFlash($type) {
+function getflash($type) {
 	@session_start();
 	$message = '';
 	if (!empty($_SESSION[$type])) {
@@ -72,3 +74,82 @@ function getFlash($type) {
 	}
 	return $message;
 }
+
+function getAllUsers() {
+	try {
+		$dbh = dbConnect();
+		$get_all_users_sql = 'SELECT * FROM con1_users';
+		$get_all_users_stm = $dbh->prepare($get_all_users_sql);
+		//SQL文実行
+		$get_all_users_stm->execute();
+		$users = $get_all_users_stm->fetchAll(PDO::FETCH_ASSOC);
+		return $users;
+	} catch (PDOException $e) {
+		$msg = 'Error : ' . $e->getMessage();
+		return false;
+	}
+}
+
+//マッチングありに指定しているuserをDBから取得
+function getMatchingOnUsers() {
+	try {
+		$dbh = dbConnect();
+		$get_matching_on_users_sql = 'SELECT * FROM con1_users WHERE matching = 1';
+		$get_matching_on_users_stm = $dbh->prepare($get_matching_on_users_sql);
+		//SQL文実行
+		$get_matching_on_users_stm->execute();
+		$matching_on_users = $get_matching_on_users_stm->fetchAll(PDO::FETCH_ASSOC);
+		return $matching_on_users;
+	} catch (PDOException $e) {
+		$msg = 'Error : ' . $e->getMessage();
+		return false;
+	}
+}
+
+//マッチングありに指定しているuserをDBから取得
+function getUserById($id) {
+	try {
+		$dbh = dbConnect();
+		$get_user_sql = 'SELECT * FROM con1_users WHERE id = ' . $id;
+		$get_user_stm = $dbh->prepare($get_user_sql);
+		//SQL文実行
+		$get_user_stm->execute();
+		$user = $get_user_stm->fetch(PDO::FETCH_ASSOC);
+		return $user;
+	} catch (PDOException $e) {
+		$msg = 'Error : ' . $e->getMessage();
+		return false;
+	}
+}
+
+//マッチングOFFにしている運営ユーザのmatchingをONにupdate
+function updateMatchingOn($user_name) {
+	try {
+		$dbh = dbConnect();
+		$update_sql = 'UPDATE con1_users SET matching = 1 WHERE name = ?';
+		$update_stm = $dbh->prepare($update_sql);
+		$update_stm->bindValue(1, $user_name, PDO::PARAM_STR);
+		$update_stm->execute();
+		return true;
+	} catch (PDOException $e) {
+		$msg = 'Error : ' . $e->getMessage();
+		return false;
+	}
+}
+
+//マッチング結果とzoom URLを取得
+function getMatchingResults() {
+	try {
+		$dbh = dbConnect();
+		$get_matching_results_sql = 'SELECT * FROM con1_matching_users';
+		$get_matching_results_stm = $dbh->prepare($get_matching_results_sql);
+		//SQL文実行
+		$get_matching_results_stm->execute();
+		$matching_results = $get_matching_results_stm->fetchAll(PDO::FETCH_ASSOC);
+		return $matching_results;
+	} catch (PDOException $e) {
+		$msg = 'Error : ' . $e->getMessage();
+		return false;
+	}
+}
+
