@@ -168,7 +168,7 @@ function beforeChristmas() {
 	$today = date('Y/m/d H:i:s');
 	// 切り替える日付を設定
 	$target_day = '2020/12/24 20:00:00';
-	// 設定した日付以降だったら、切り替える
+	// 設定した日付以前だったら、切り替える
 	if (strtotime($today) < strtotime($target_day)) {
 		header('Location: mypage.php');
 		exit;
@@ -186,13 +186,19 @@ function notSetChristmasMessage() {
 		$christmas_message_stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 		$christmas_message_stmt->execute();
 		$matching_on_user = $christmas_message_stmt->fetch();
-		if ($matching_on_user === false) {
-			header('Location: create_mypage_form.php');
-		}
 	} catch (PDOException $e) {
 		error_log('Error : ' . $e->getMessage());
 		header('Location: mypage.php');
 		exit;
+	}
+	if ($matching_on_user === false) {
+		//クリスマス以前のみ切り返る
+		$today = date('Y/m/d H:i:s');
+		$target_day = '2020/12/24 20:00:00';
+		if (strtotime($today) < strtotime($target_day)) {
+			header('Location: create_mypage_form.php');
+			exit;
+		}
 	}
 }
 //クリスマスメッセージを設定していたら、マイページにリダイレクト
@@ -208,6 +214,7 @@ function SetChristmasMessage() {
 		$matching_on_user = $christmas_message_stmt->fetch();
 		if ($matching_on_user !== false) {
 			header('Location: mypage.php');
+			exit;
 		}
 	} catch (PDOException $e) {
 		error_log('Error : ' . $e->getMessage());
