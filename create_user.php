@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$_SESSION['class'] = $user['class'];
 			$_SESSION['slack_id'] = $user['slack_id'];
 			setFlash('flash', '登録完了。ログインしました');
-			header('Location: index.php');
+			header('Location: mypage.php');
 			exit;
 		} else {
 			$error_messages['name'] = '※ニックネームは既に使用されています';
