@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$_SESSION['name'] = $user['name'];
 				$_SESSION['class'] = $user['class'];
 				$_SESSION['slack_id'] = $user['slack_id'];
-				setFlash('flash_message', 'ログインしました');
+				setFlash('flash', 'ログインしました');
 				header('Location: index.php');
 				exit;
 			} else {
@@ -51,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <title>ログインフォーム</title>
 </head>
 <body>
+<p><?php echo getFlash('error'); ?></p>
 <h1>ログイン</h1>
 <form action="login.php" method="post">
 <p>ニックネームとパスワードを入力してください</p>
