@@ -4,7 +4,7 @@ require_once (dirname(__FILE__). '/function.php');
 //認証
 loginedSession();
 //クリスマスメッセージを設定しているか確認
-//notSetChristmasMessage();
+notSetChristmasMessage();
 
 if (isset($_GET['task_message_id'])) {
 	$task_message_id = (int)$_GET['task_message_id'];
