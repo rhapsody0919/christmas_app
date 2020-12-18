@@ -4,7 +4,7 @@ require_once (dirname(__FILE__). '/function.php');
 loginedSession();
 
 //クリスマス以前か判定
-//beforeChristmas();
+beforeChristmas();
 
 $id = $_SESSION['id'];
 $name = $_SESSION['name'];
