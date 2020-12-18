@@ -39,15 +39,6 @@ if ($result !== false) {
 } else {
 	$messages['message'] = 'クリスマスメッセージは設定されていませんでした。';
 }
-// クリスマスメッセージ交換記録の取得
-$sql = 'SELECT con1_users.name, con1_users.class, con1_christmas.exchange FROM con1_users INNER JOIN con1_christmas_exchange ON con1_users.id = con1_christmas_exchange.user_id OR con1_users.id = con1_christmas_exchange.present_by';
-$stmt = $dbh->query($sql);
-if ($stmt !== false) {
-	$exchange_users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} else {
-	$messages['error'] = '[エラー]クリスマスメッセージの履歴が取得できませんでした。';
-	error_log('Error : select error ' . (__FILE__));
-}
 ?>
 
 <!DOCTYPE html>
@@ -59,8 +50,6 @@ if ($stmt !== false) {
 <body>
 <h1>クリスマスメッセージ</h1>
 <p><?php echo $messages['message']; ?></p>
-<p>----------今回のマッチング結果はこちら-----------</p>
-<p><?php if (!empty($messages['error'])) echo $messages['error']; ?></p>
 <a href="task_message.php">掲示板</a><br>
 </body>
 </html>

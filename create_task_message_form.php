@@ -2,6 +2,7 @@
 session_start();
 require_once (dirname(__FILE__). '/function.php');
 loginedSession();
+//notSetChristmasMessage();
 ?>
 
 <!DOCTYPE html>

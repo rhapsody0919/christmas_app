@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'function.php';
+require_once (dirname(__FILE__) . '/function.php');
 //ログイン時の情報を一時保存し、取得
 $user_id = $_SESSION['id'];
 $dbh = dbConnect();
@@ -29,7 +29,7 @@ $christmas_message = $stmt2->fetch();
 </head>
 
 <body>
-<h1>クリスマスメッセージ編集ページ</h1>
+<h1>ボトルクリスマスメッセージ編集ページ</h1>
 <form action="mypage_edit.php" method="post">
 <p>名前:
 <?php echo $user_info['name']; ?>
@@ -43,7 +43,7 @@ $christmas_message = $stmt2->fetch();
 <input type="radio" name="matching" value="0" checked="checked">OFF
 <?php endif; ?>
 </p>
-<p>クリスマスメッセージ:<br>
+<p>ボトルメッセージ<br>
 <textarea name="message" cols="60"  rows="8"><?php echo $christmas_message['message']; ?></textarea>
 </p>
 <p>
