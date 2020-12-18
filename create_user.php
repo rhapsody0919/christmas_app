@@ -53,7 +53,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$stmt->bindValue(':class', $class, PDO::PARAM_INT);
 			$stmt->bindValue(':password', $password, PDO::PARAM_STR);
 			$stmt->bindValue(':slack_id', $slack_id, PDO::PARAM_STR);
-			$stmt->execute();
+			$result = $stmt->execute();
+			if ($result === false) {
+				error_log('Error : insert error ' . (__FILE__));
+				setFlash('error', 'システムエラー');
+				header('Location: login.php');
+				exit;
+			}
 			$sql = 'SELECT * FROM con1_users WHERE name = :name';
 			$stmt = $dbh->prepare($sql);
 			$stmt->bindValue(':name', $name);
@@ -63,8 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$_SESSION['name'] = $user['name'];
 			$_SESSION['class'] = $user['class'];
 			$_SESSION['slack_id'] = $user['slack_id'];
-			setFlash('flash_message', '登録完了。ログインしました');
-			header('Location: index.php');
+			setFlash('flash', '登録完了。ログインしました');
+			header('Location: mypage.php');
 			exit;
 		} else {
 			$error_messages['name'] = '※ニックネームは既に使用されています';
