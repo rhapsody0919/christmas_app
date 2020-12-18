@@ -71,10 +71,10 @@ if (matching()) {
 	$matching_results = getMatchingResults();
 	//マッチング結果をスラック通知
 	foreach ($matching_results as $matching_result) {
-		$user_name1 = getUserById($matching_result['user_id_1'])['name'];
-		$user_name2 = getUserById($matching_result['user_id_2'])['name'];
+		$user_slack_id1 = getUserById($matching_result['user_id_1'])['slack_id'];
+		$user_slack_id2 = getUserById($matching_result['user_id_2'])['slack_id'];
 		$zoom_url = $matching_result['zoom_url'];
-		$message = $user_name1 . 'さんと' . $user_name2 . 'さんがマッチングしました!' . "\n" .
+		$message = "<@$user_slack_id1>" . 'さんと' . "<@$user_slack_id2>" . 'さんがマッチングしました!' . "\n" .
 			'お時間になったら下記のURLからマッチング面談を行ってください。' . "\n" .
 			$zoom_url;
 		slackNotification($message);
