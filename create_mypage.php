@@ -1,8 +1,8 @@
 <?php
 session_start();
-require 'function.php';
+require_once (dirname(__FILE__). '/function.php');
 $user_id = $_SESSION['id'];
-if (!empty($_POST['message'])) {
+if (mb_strlen($_POST['message']) > 255 || mb_strlen($_POST['message']) < 3) {
 	$user_message = $_POST['message'];
 	$dbh = dbConnect();
 	$sql = "INSERT INTO con1_christmas_messages (user_id, message) WHERE (:user_id, :message)";
@@ -11,7 +11,7 @@ if (!empty($_POST['message'])) {
 	$stmt->bindValue(':message', $user_message, PDO::PARAM_STR);
 	$stmt->execute();
 	$dbh = null;
-	header('Location: https://procir-study.site/Kan414/christmas/christmas_app/mypage.php');
+	header('Location: mypage.php');
 	exit;
 } else {
 	$error_message['message'] ='クリスマスメッセージを作成してください';

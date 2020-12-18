@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'function.php';
+require_once (dirname(__FILE__). '/function.php');
 //ログイン時にdbから取得したデータを一時的に保存する
 $user_id = $_SESSION['id'];
 //var_dump($user_id);
@@ -18,7 +18,7 @@ $sql2 = "SELECT * FROM con1_christmas_messages WHERE user_id = :user_id";
 $stmt2 = $dbh->prepare($sql2);
 $stmt2->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 $stmt2->execute();
-$user_message = $stmt2->fetch();
+$christmas_message = $stmt2->fetch();
 ?>
 
 <!DOCTYPE html>
@@ -43,16 +43,17 @@ echo $user_info['class'] . '期生';
 </p>
 <p>マッチング:
 <?php
-if($user_info['matching']==0){
+if ((int)$user_info['matching'] === 0){
 	echo "OFF";
-} elseif($user_info['matching']==1){
+}
+if ((int)$user_info['matching'] === 1){
 	echo "ON";
 }
 ?>
 </p>
 <p>クリスマスメッセージ:
 <?php
-echo $user_message['message'];
+echo $christmas_message['message'];
 ?>
 </p>
 <p><button onclick="location.href='mypage_edit_form.php'">編集する</button></p>

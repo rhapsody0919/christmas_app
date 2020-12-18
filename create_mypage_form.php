@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'function.php';
+require_once (dirname(__FILE__). '/function.php');
 $user_id = $_SESSION['id'];
 ?>
 
