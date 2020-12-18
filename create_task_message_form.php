@@ -22,5 +22,6 @@ loginedSession();
 </label><br>
 <input type="submit" value="投稿">
 </form><br>
+<a href="task_message.php">掲示板に戻る</a>
 </body>
 </html>
