@@ -2,6 +2,8 @@
 session_start();
 require_once (dirname(__FILE__). '/function.php');
 loginedSession();
+//notSetChristmasMessage();
+
 if (!isset($_GET['task_message_id'])) {
 	header('Location: task_message.php');
 	exit;
