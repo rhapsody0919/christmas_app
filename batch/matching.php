@@ -74,8 +74,8 @@ if (matching()) {
 		$user_slack_id1 = getUserById($matching_result['user_id_1'])['slack_id'];
 		$user_slack_id2 = getUserById($matching_result['user_id_2'])['slack_id'];
 		$zoom_url = $matching_result['zoom_url'];
-		$message = "<@$user_slack_id1>" . 'さんと' . "<@$user_slack_id2>" . 'さんがマッチングしました!' . "\n" .
-			'お時間になったら下記のURLからマッチング面談を行ってください。' . "\n" .
+		$message = 'この聖なる夜に' . "<@$user_slack_id1>" . 'さんと' . "<@$user_slack_id2>" . 'さんがマッチングしました!' . "\n" .
+			'12/24 22:00 になったら下記のURLからマッチング面談を行ってください。' . "\n" .
 			$zoom_url;
 		slackNotification($message);
 	}

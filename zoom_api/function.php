@@ -42,19 +42,24 @@ function getUserId() {
 }
 
 function sendRequest($method, $path, $client_params) {
-	$client = new Client($client_params);
-	$jwt_token = createJwtToken();
-	$response = $client->request($method,
-		$path,
-		[
-			'headers' => [
-				'Content-Type' => 'application/json',
-				'Authorization' => 'Bearer ' . $jwt_token,
-			]
-		]);
-	$result_json = $response->getBody()->getContents();
-	$result = json_decode($result_json, true);
-	return $result;
+	try {
+		$client = new Client($client_params);
+		$jwt_token = createJwtToken();
+		$response = $client->request($method,
+			$path,
+			[
+				'headers' => [
+					'Content-Type' => 'application/json',
+					'Authorization' => 'Bearer ' . $jwt_token,
+				]
+			]);
+		$result_json = $response->getBody()->getContents();
+		$result = json_decode($result_json, true);
+		return $result;
+	//ステータスコードを取得
+	} catch (Exception $e) {
+		$error_code = json_decode($e->getResponse()->getBody()->getContents())->code;
+	}
 }
 
 

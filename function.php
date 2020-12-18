@@ -153,3 +153,37 @@ function getMatchingResults() {
 	}
 }
 
+//matching_usersテーブルから全てのzoom uuidを取得
+function getAllZoomUUID() {
+	try {
+		$dbh = dbConnect();
+		$get_all_zoom_uuid_sql = 'SELECT zoom_uuid FROM con1_matching_users';
+		$get_all_zoom_uuid_stm = $dbh->prepare($get_all_zoom_uuid_sql);
+		//SQL文実行
+		$get_all_zoom_uuid_stm->execute();
+		$all_zoom_uuid = $get_all_zoom_uuid_stm->fetchAll(PDO::FETCH_ASSOC);
+		return $all_zoom_uuid;
+	} catch (PDOException $e) {
+		$msg = 'Error : ' . $e->getMessage();
+		return false;
+	}
+}
+
+//matching_usersテーブルのboth_joinedカラムのupdate
+function updateBothJoinedByUuid($both_joined, $zoom_uuid) {
+	try {
+		$dbh = dbConnect();
+		$update_sql = 'UPDATE con1_matching_users SET both_joined = ? WHERE zoom_uuid = ?';
+		$update_stm = $dbh->prepare($update_sql);
+		$update_stm->bindValue(1, $both_joined, PDO::PARAM_STR);
+		$update_stm->bindValue(2, $zoom_uuid, PDO::PARAM_STR);
+		$update_stm->execute();
+		return true;
+	} catch (PDOException $e) {
+		$msg = 'Error : ' . $e->getMessage();
+		return false;
+	}
+}
+
+
+
