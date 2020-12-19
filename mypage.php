@@ -43,7 +43,7 @@ $christmas_message = $stmt2->fetch();
     <aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
       <div class="main-navbar">
         <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
-          <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
+          <a class="navbar-brand w-100 mr-0" href="index.php" style="line-height: 25px;">
             <div class="d-table m-auto">
               <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="images/630.gif" alt="プロサーがサンタクロース">
               <span class="d-none d-md-inline ml-1">プロサーがサンタクロース</span>
@@ -137,8 +137,8 @@ if ((int)$user_info['matching'] === 1){
 echo $christmas_message['message'];
 ?>
 							</p>
-							<a class="btn btn-accent" href='mypage_edit_form.php'>編集する</a>
-							<a class="btn btn-accent" href='task_message.php'>掲示板へ</a>
+							<a class="btn btn-success" href='mypage_edit_form.php'>編集する</a>
+							<a class="btn btn-success" href='task_message.php'>掲示板へ</a>
 						</div>
 					  </div>
 					</li>
@@ -146,7 +146,6 @@ echo $christmas_message['message'];
 				</div>
 			  </div>
 			</div>
-			<!-- End Default Light Table -->
 	  </main>
 	</div>
   </div>

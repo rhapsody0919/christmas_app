@@ -42,7 +42,7 @@ $christmas_message = $stmt2->fetch();
     <aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
       <div class="main-navbar">
         <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
-          <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
+          <a class="navbar-brand w-100 mr-0" href="index.php" style="line-height: 25px;">
             <div class="d-table m-auto">
               <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="images/630.gif" alt="プロサーがサンタクロース">
               <span class="d-none d-md-inline ml-1">プロサーがサンタクロース</span>
@@ -129,11 +129,11 @@ $christmas_message = $stmt2->fetch();
 <textarea name="message" cols="60"  rows="8"><?php echo $christmas_message['message']; ?></textarea>
 </p>
 <p>
-<input type="submit" class="btn btn-accent" href='mypage_edit.php' value="変更する">
+<input type="submit" class="btn btn-success" href='mypage_edit.php' value="変更する">
 </p>
 </form>
 <p>
-<a class="btn btn-accent" href='mypage.php'>マイページに戻る</a>
+<a class="btn btn-success" href='mypage.php'>マイページに戻る</a>
 </p>
 						</div>
 					  </div>

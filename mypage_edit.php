@@ -59,7 +59,7 @@ if (!empty($_POST['message'])) {
     <aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
       <div class="main-navbar">
         <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
-          <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
+          <a class="navbar-brand w-100 mr-0" href="index.php" style="line-height: 25px;">
             <div class="d-table m-auto">
               <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="images/630.gif" alt="プロサーがサンタクロース">
               <span class="d-none d-md-inline ml-1">プロサーがサンタクロース</span>
@@ -139,7 +139,7 @@ if (!empty($error_message['matching'])) {
 }
 ?>
 <br>
-<a href="mypage_edit_form.php">編集に戻る</a>
+<a class="btn btn-success" href="mypage_edit_form.php">編集に戻る</a>
 						</div>
 					  </div>
 					</li>
