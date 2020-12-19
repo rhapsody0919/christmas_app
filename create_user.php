@@ -100,15 +100,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </label>
 <br>
 <p><?php if (!empty($error_messages['class'])) echo $error_messages['class']; ?></p>
-<label>ニックネーム<br>
+<label>ニックネーム<small>&nbsp;※25文字以下</small><br>
 <input type="text" name="name" value="<?php if (!empty($_POST['name'])) echo $_POST['name']; ?>" required>
 </label><br>
 <p><?php if (!empty($error_messages['name'])) echo $error_messages['name']; ?></p>
-<label>パスワード<br>
+<label>パスワード<small>&nbsp;※8文字以上半角英数字</small><br>
 <input type="password" name="password1" value="<?php if (!empty($_POST['password1'])) echo $_POST['password1']; ?>" required>
 </label><br>
 <p><?php if (!empty($error_messages['password1'])) echo $error_messages['password1']; ?></p>
-<label>パスワード(確認用)<br>
+<label>パスワード（確認用）<br>
 <input type="password" name="password2" required>
 </label><br>
 <p><?php if (!empty($error_messages['password2'])) echo $error_messages['password2']; ?></p>
