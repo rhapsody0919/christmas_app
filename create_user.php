@@ -85,6 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <title>新規登録</title>
 </head>
 <body>
+<?php echo getFlash('error'); ?>
+<?php echo getFlash('flash'); ?>
 <h1>ユーザー新規登録</h1>
 <form action="create_user.php" method="post">
 <label>期選択<br>

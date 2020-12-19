@@ -51,7 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <title>ログインフォーム</title>
 </head>
 <body>
-<p><?php echo getFlash('error'); ?></p>
+<?php echo getFlash('error'); ?>
+<?php echo getFlash('flash'); ?>
 <h1>ログイン</h1>
 <form action="login.php" method="post">
 <p>ニックネームとパスワードを入力してください</p>
