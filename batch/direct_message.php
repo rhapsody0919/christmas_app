@@ -1,7 +1,6 @@
 <?php
-//require_once (dirname(__FILE__). '/get_users_name.php');
 require_once (dirname(__FILE__). '/../function.php');
-require_once (dirname(__FILE__). '/conversations_open.php');
+require_once (dirname(__FILE__). '/../slack_api/conversations_open.php');
 
 //.envの保存場所指定（一つ上の階層に設定）
 $dotenv = Dotenv\Dotenv :: createUnsafeImmutable(__DIR__ . '/..');
@@ -16,7 +15,6 @@ foreach ($matching_results as $matching_result) {
 	$users_arr = [];
 	$users_arr[] = getUserById($matching_result['user_id_1']);
 	$users_arr[] = getUserById($matching_result['user_id_2']);
-	//$user2 = getUserById($matching_results['user_id_2']);
 	$i = 0;
 	foreach ($users_arr as $user) {
 		$dm_channel_id = conversationsOpen($user['slack_id']);

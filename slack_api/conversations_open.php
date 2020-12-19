@@ -34,8 +34,7 @@ function conversationsOpen($user_slack_id) {
 	curl_close($curl);
 	//エラーが起こった場合
 	if (!$result['ok'] == 1) {
-		echo $user_slack_id;
-		echo 'エラー';
+		error_log($user_slack_id . '宛のDMに失敗しました。' . "\n", 3, __DIR__ . '/../log/direct_message.log');
 		return false;
 	}
 	return $result['channel']['id'];

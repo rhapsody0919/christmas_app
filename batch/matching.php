@@ -1,7 +1,6 @@
 <?php
 require_once (dirname(__FILE__) . '/../vendor/autoload.php');
 require_once (dirname(__FILE__). '/../function.php');
-require_once (dirname(__FILE__) . '/../zoom_api/create_meeting.php');
 require_once (dirname(__FILE__). '/../slack_api/slack_notification.php');
 
 function matching() {
@@ -41,17 +40,13 @@ function matching() {
 		while ($matching_on_users) {
 			//ランダムに2人ずつ取得して配列から削除
 			$selected_users = array_splice($matching_on_users, 0, 2);
-			//zoom_uriを作成
-			$meeting = createMeeting();
-			$query[] = '(?, ?, ?, ?)';
+			$query[] = '(?, ?)';
 
 			$param[] = $selected_users[0]['id'];
 			$param[] = $selected_users[1]['id'];
-			$param[] = $meeting['join_url'];
-			$param[] = $meeting['uuid'];
 		}
 		//DBに保存
-		$insert_sql = 'INSERT INTO con1_matching_users (user_id_1, user_id_2, zoom_url, zoom_uuid) VALUES ';
+		$insert_sql = 'INSERT INTO con1_matching_users (user_id_1, user_id_2) VALUES ';
 		$insert_sql .= implode(', ', $query);
 		$insert_stm = $dbh->prepare($insert_sql);
 		$insert_stm->execute($param);
@@ -73,10 +68,9 @@ if (matching()) {
 	foreach ($matching_results as $matching_result) {
 		$user_slack_id1 = getUserById($matching_result['user_id_1'])['slack_id'];
 		$user_slack_id2 = getUserById($matching_result['user_id_2'])['slack_id'];
-		$zoom_url = $matching_result['zoom_url'];
-		$message = 'この聖なる夜に' . "<@$user_slack_id1>" . 'さんと' . "<@$user_slack_id2>" . 'さんがマッチングしました!' . "\n" .
-			'12/24 22:00 になったら下記のURLからマッチング面談を行ってください。' . "\n" .
-			$zoom_url;
+		$message = '「プロサーがサンタクロース」 -ボトルメッセージから始まる新しいつながり-' . "\n" .
+			"<@$user_slack_id1>" . 'さんと' . "<@$user_slack_id2>" . 'さんがマッチングしました!' . "\n" .
+			'早速DMやzoomでお話ししてみよう!';
 		slackNotification($message);
 	}
 

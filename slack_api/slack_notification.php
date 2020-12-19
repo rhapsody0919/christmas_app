@@ -1,6 +1,10 @@
 <?php
+require_once (dirname(__FILE__) . '/../vendor/autoload.php');
 
 function slackNotification($message) {
+	//.envの保存場所指定（一つ上の階層に設定）
+	$dotenv = Dotenv\Dotenv :: createUnsafeImmutable(__DIR__ . '/..');
+	$dotenv->load();
 	// Webhook URL
 	$url = getenv('WEBHOOK_URL');
 
@@ -8,8 +12,7 @@ function slackNotification($message) {
 
 	// メッセージ
 	$param = array(
-		'username' => 'christmas_app',
-		//'text' => 'AさんとBさんがマッチングされました。12/25日(金)22:00になりましたら、以下のURLからお入りください。メリークリスマス!!',
+		'username' => 'プロサーがサンタクロース',
 		'text' => $message,
 	);
 
@@ -18,7 +21,6 @@ function slackNotification($message) {
 
 	// payloadの値としてURLエンコード
 	$param_post = 'payload=' . urlencode($param_json);
-	echo 'a';
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $url);
