@@ -152,22 +152,22 @@ function getMatchingResults() {
 		return false;
 	}
 }
-//24日以降はクリスマスメッセージ画面にリダイレクト
+//25日以降はクリスマスメッセージ画面にリダイレクト
 function afterChristmas() {
 	$today = date('Y/m/d H:i:s');
 	// 切り替える日付を設定
-	$target_day = '2020/12/24 20:00:00';
+	$target_day = '2020/12/25 00:00:00';
 	// 設定した日付以降だったら、切り替える
 	if (strtotime($today) > strtotime($target_day)) {
 		header('Location: christmas_mypage.php');
 		exit;
 	}
 }
-//24日以前はマイページにリダイレクト
+//25日以前はマイページにリダイレクト
 function beforeChristmas() {
 	$today = date('Y/m/d H:i:s');
 	// 切り替える日付を設定
-	$target_day = '2020/12/24 20:00:00';
+	$target_day = '2020/12/25 00:00:00';
 	// 設定した日付以前だったら、切り替える
 	if (strtotime($today) < strtotime($target_day)) {
 		header('Location: mypage.php');
@@ -208,7 +208,6 @@ function updateBothJoinedByUuid($both_joined, $zoom_uuid) {
 }
 
 
-
 //クリスマスメッセージを設定していなかったら、新規作成にリダイレクト
 function notSetChristmasMessage() {
 	@session_start();
@@ -228,7 +227,7 @@ function notSetChristmasMessage() {
 	if ($matching_on_user === false) {
 		//クリスマス以前のみ切り返る
 		$today = date('Y/m/d H:i:s');
-		$target_day = '2020/12/24 20:00:00';
+		$target_day = '2020/12/23 23:00:00';
 		if (strtotime($today) < strtotime($target_day)) {
 			header('Location: create_mypage_form.php');
 			exit;
