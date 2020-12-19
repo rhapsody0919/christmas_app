@@ -30,9 +30,15 @@ if ($task_message === false) {
 <body>
 <h1>メッセージ詳細</h1>
 <br>
-<h2><?php echo $task_message['class']; ?>期の<?php echo $task_message['name']; ?>さんより</h2>
-<h3>タイトル：<?php echo $task_message['title']; ?></h3>
-<h3>本文：<?php echo $task_message['message']; ?></h3>
+<h2>
+<?php if((int)$task_message['class'] === 0) : ?>
+運営
+<?php else : ?>
+<?php echo $task_message['class'] . "期"; ?>
+<?php endif; ?>
+の<?php echo h($task_message['name']); ?>さんからクリスマスメッセージが届いています</h2>
+<h3>タイトル：<?php echo h($task_message['title']); ?></h3>
+<h3>本文：<?php echo h($task_message['message']); ?></h3>
 <br>
 <a href="task_message.php">掲示板へ戻る</a>
 </body>
