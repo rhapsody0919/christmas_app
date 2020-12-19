@@ -2,7 +2,7 @@
 session_start();
 require_once (dirname(__FILE__). '/function.php');
 loginedSession();
-//notSetChristmasMessage();
+notSetChristmasMessage();
 ?>
 
 <!DOCTYPE html>
@@ -14,12 +14,13 @@ loginedSession();
 <body>
 <h1>課題応援メッセージ新規作成</h1>
 <form action="create_task_message.php" method="post">
-<p>タイトルとメッセージを入力してください</p>
-<label>タイトル<br>
+<p>課題応援メッセージを贈ります<br>
+タイトルとメッセージを入力してください</p>
+<label>タイトル *3文字以上25文字以下で入力<br>
 <input type="text" name="title">
 </label><br>
-<label>メッセージ<br>
-<textarea name="message"></textarea>
+<label>メッセージ　*225文字以下で入力<br>
+<textarea name="message" cols="60" rows="8"></textarea>
 </label><br>
 <input type="submit" value="投稿">
 </form><br>

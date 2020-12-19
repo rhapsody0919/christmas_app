@@ -18,7 +18,14 @@ $task_messages = $dbh->query($sql);
 <title>課題応援掲示板</title>
 </head>
 <body>
+<?php echo getFlash('error'); ?>
+<?php echo getFlash('flash'); ?>
 <h1>課題応援掲示板</h1>
+
+プログラミングを頑張る人に応援メッセージをプレゼントしよう！<br>
+同期のあの人へ。あの課題に取り組んでいる人へ。<br>
+あなたのメッセージが、あの人の頑張る力になる。<br>
+
 <a href="create_task_message_form.php">
 新規作成
 </a><br>
@@ -29,10 +36,10 @@ $task_messages = $dbh->query($sql);
 <?php foreach ($task_messages as $task_message) : ?>
 <tr>
 <td><?php echo $task_message['class']; ?>期</td>
-<td><?php echo $task_message['name']; ?></td>
+<td><?php echo h($task_message['name']); ?></td>
 <td>
 <a href="task_message_detail.php?task_message_id=<?php echo $task_message['id']; ?>">
-<?php echo $task_message['title']; ?></a>
+<?php echo h($task_message['title']); ?></a>
 </td>
 <td>
 <?php if ((int)$_SESSION['id'] === (int)$task_message['user_id']) : ?>
