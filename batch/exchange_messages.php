@@ -8,6 +8,7 @@ $dbh = dbConnect();
 $sql = 'SELECT user_id_1, user_id_2 FROM con1_matching_users';
 $stmt = $dbh->query($sql);
 if ($stmt === false) {
+	error_log('Error : select error matchingテーブル' . (__FILE__));
 	exit;
 }
 $matching_users = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -17,6 +18,7 @@ $matching_users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $sql = 'SELECT con1_test_messages.user_id FROM con1_test_messages INNER JOIN con1_users ON con1_test_messages.user_id = con1_users.id WHERE con1_users.matching = 0';
 $stmt = $dbh->query($sql);
 if ($stmt === false) {
+	error_log('Error : select error ' . (__FILE__));
 	exit;
 }
 $matching_off_users = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -64,4 +66,10 @@ foreach($matching as $key1 => $val1){
 		$stmt->bindValue(':' . $key2 . $key1, $val2, PDO::PARAM_INT);
 	}
 }
-$stmt->execute();
+$result = $stmt->execute();
+if ($result === false) {
+	error_log('Error : insert error ' . (__FILE__));
+	exit;
+}
+
+
