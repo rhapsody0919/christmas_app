@@ -2,7 +2,7 @@
 session_start();
 require_once (dirname(__file__). '/function.php');
 loginedSession();
-notSetChristmasMessage();
+//notSetChristmasMessage();
 
 // テーブルに表示
 $dbh = dbConnect();
@@ -35,7 +35,13 @@ $task_messages = $dbh->query($sql);
 </tr>
 <?php foreach ($task_messages as $task_message) : ?>
 <tr>
-<td><?php echo $task_message['class']; ?>期</td>
+<td>
+<?php if((int)$task_message['class'] === 0) : ?>
+運営
+<?php else : ?>
+<?php echo $task_message['class']; ?>期
+<?php endif; ?>
+</td>
 <td><?php echo h($task_message['name']); ?></td>
 <td>
 <a href="task_message_detail.php?task_message_id=<?php echo $task_message['id']; ?>">
