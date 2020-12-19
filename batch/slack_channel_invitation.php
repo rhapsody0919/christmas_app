@@ -9,5 +9,5 @@ channelInvitation();
 $message = '「プロサーがサンタクロース」 -ボトルメッセージから始まる新しいつながり-にご参加ありがとうございます!' . "\n" .
 	'このチャンネルでメッセージやマッチングの通知を行います!' . "\n" .
 	'下記のURLより"瓶にメッセージを入れて海原に送り出すように"自分の想いや夢をメンバーに届けましょう!' . "\n" .
-	'URL : ~~';
+	'https://procir-study.site/ishibashi331/christmas_app/login.php';
 slackNotification($message);

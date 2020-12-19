@@ -1,23 +1,3 @@
-<?php
-session_start();
-require_once (dirname(__FILE__). '/function.php');
-$user_id = $_SESSION['id'];
-if (mb_strlen($_POST['message']) > 255 || mb_strlen($_POST['message']) < 3) {
-	$user_message = $_POST['message'];
-	$dbh = dbConnect();
-	$sql = "INSERT INTO con1_christmas_messages (user_id, message) WHERE (:user_id, :message)";
-	$stmt = $dbh->prepare($sql);
-	$stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-	$stmt->bindValue(':message', $user_message, PDO::PARAM_STR);
-	$stmt->execute();
-	$dbh = null;
-	header('Location: mypage.php');
-	exit;
-} else {
-	$error_message['message'] ='クリスマスメッセージを作成してください';
-}
-?>
-
 <!doctype html>
 <html class="no-js h-100" lang="en">
 <head>
@@ -79,6 +59,12 @@ if (mb_strlen($_POST['message']) > 255 || mb_strlen($_POST['message']) < 3) {
           </a>
           </li>
           <li class="nav-item">
+          <a class="nav-link " href="create_mypage.php">
+            <i class="material-icons">note_add</i>
+            <span>ボトルメッセージ</span>
+          </a>
+          </li>
+          <li class="nav-item">
           <a class="nav-link " href="task_message.php">
             <i class="material-icons">vertical_split</i>
             <span>課題応援メッセージ掲示板</span>
@@ -99,11 +85,35 @@ if (mb_strlen($_POST['message']) > 255 || mb_strlen($_POST['message']) < 3) {
         </div>
       </div>
       <!-- End Page Header -->
-		<?php
-		if (!empty($error_message['message'])) {
-			echo $error_message['message'];
-		}
-		?>
+      <!-- Small Stats Blocks -->
+      <div class="row">
+        <div class="col-lg col-md-6 col-sm-6 mb-4">
+          <div class="stats-small stats-small--1 card card-small">
+            <div class="card-body p-0 d-flex">
+              <div class="d-flex flex-column m-auto">
+                <div class="stats-small__data text-center">
+                  <span class="stats-small__label text-uppercase">Posts</span>
+                  <h6 class="stats-small__value count my-3">2,390</h6>
+                </div>
+              </div>
+              <canvas height="120" class="blog-overview-stats-small-1"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg col-md-4 col-sm-6 mb-4">
+          <div class="stats-small stats-small--1 card card-small">
+            <div class="card-body p-0 d-flex">
+              <div class="d-flex flex-column m-auto">
+                <div class="stats-small__data text-center">
+                  <span class="stats-small__label text-uppercase">Users</span>
+                  <h6 class="stats-small__value count my-3">2,413</h6>
+                </div>
+              </div>
+              <canvas height="120" class="blog-overview-stats-small-4"></canvas>
+            </div>
+          </div>
+        </div>
+        <!-- End Small Stats Blocks -->
       </div>
       </main>
     </div>

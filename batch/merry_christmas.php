@@ -5,5 +5,5 @@ require_once (dirname(__FILE__). '/../slack_api/slack_notification.php');
 $message = 'メリークリスマス!!' . "\n" .
 	'プロサー生からクリスマスプレゼントが届いています!' . "\n" .
 	'下記のURLからプレゼントを確認してみましょう!' . "\n" .
-	'URL : ~~';
+	'https://procir-study.site/ishibashi331/christmas_app/login.php';
 slackNotification($message);
