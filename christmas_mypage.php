@@ -48,6 +48,8 @@ if ($result !== false) {
 <title>クリスマスメッセージ</title>
 </head>
 <body>
+<?php echo getFlash('error'); ?>
+<?php echo getFlash('flash'); ?>
 <h1>クリスマスメッセージ</h1>
 <p><?php echo $messages['message']; ?></p>
 <a href="task_message.php">掲示板</a><br>
