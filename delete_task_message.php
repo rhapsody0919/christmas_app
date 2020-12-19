@@ -55,8 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 <h1>課題応援メッセージ削除</h1>
-<p>タイトル：<?php echo $task_message['title']; ?></p>
-<p>メッセージ：<?php echo $task_message['message']; ?></p>
+<p>タイトル：<?php echo h($task_message['title']); ?></p>
+<p>メッセージ：<?php echo h($task_message['message']); ?></p>
 <p>本当に削除しますか？</p>
 <form action="delete_task_message.php" method="post">
 <input type="hidden" name="task_message_id" value="<?php echo $task_message_id; ?>">
