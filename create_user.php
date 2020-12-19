@@ -93,19 +93,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <select name="class">
 <?php for ($i=1; $i<=14; $i++) : ?>
 <?php if ($i === 9) continue; ?>
-<option value="<?php echo $i; ?>"><?php echo $i; ?>期生</option>
+<option value="<?php echo $i; ?>" <?php if (isset($_POST['class']) && (int)$_POST['class'] === $i) : ?>selected<?php endif; ?>><?php echo $i; ?>期生</option>
 <?php endfor; ?>
-<option value="0">運営</option>
+<option value="0" <?php if (isset($_POST['class']) && (int)$_POST['class'] === 0) : ?>selected<?php endif; ?>>運営</option>
 </select>
 </label>
 <br>
 <p><?php if (!empty($error_messages['class'])) echo $error_messages['class']; ?></p>
 <label>ニックネーム<br>
-<input type="text" name="name" required>
+<input type="text" name="name" value="<?php if (!empty($_POST['name'])) echo $_POST['name']; ?>" required>
 </label><br>
 <p><?php if (!empty($error_messages['name'])) echo $error_messages['name']; ?></p>
 <label>パスワード<br>
-<input type="password" name="password1" required>
+<input type="password" name="password1" value="<?php if (!empty($_POST['password1'])) echo $_POST['password1']; ?>" required>
 </label><br>
 <p><?php if (!empty($error_messages['password1'])) echo $error_messages['password1']; ?></p>
 <label>パスワード(確認用)<br>
@@ -113,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </label><br>
 <p><?php if (!empty($error_messages['password2'])) echo $error_messages['password2']; ?></p>
 <label>SlackID<br>
-<input type="text" name="slack_id" required>
+<input type="text" name="slack_id" value="<?php if (!empty($_POST['slack_id'])) echo $_POST['slack_id']; ?>" required>
 </label><br>
 <p><?php if (!empty($error_messages['slack_id'])) echo $error_messages['slack_id']; ?></p>
 <p><strong>SlackIDとは?</strong><br>Slackのシステム側でユーザーを一意に管理するために付与されたシステム用のIDです。<br>
