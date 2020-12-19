@@ -174,6 +174,17 @@ function beforeChristmas() {
 		exit;
 	}
 }
+//23日以前でクリスマスメッセージを編集、新規作成可能か
+function editableChristmasMessage() {
+	$today = date('Y/m/d H:i:s');
+	// 切り替える日付を設定
+	$target_day = '2020/12/23 23:00:00';
+	// 設定した日付以降だったら、切り替える
+	if (strtotime($today) > strtotime($target_day)) {
+		header('Location: christmas_mypage.php');
+		exit;
+	}
+}
 //クリスマスメッセージを設定していなかったら、新規作成にリダイレクト
 function notSetChristmasMessage() {
 	@session_start();
