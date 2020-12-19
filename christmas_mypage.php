@@ -31,13 +31,12 @@ if ($result !== false) {
 	$stmt->bindValue(':user_id', $present_id, PDO::PARAM_INT);
 	$stmt->execute();
 	$present = $stmt->fetch();
-	if ($present !== false) {
-		$messages['message'] = $present['name'] . 'さんからクリスマスメッセージが届きました！';
-	} else {
-		$messages['message'] = 'クリスマスメッセージは設定されていませんでした。';
+	if ($present === false) {
+		$messages['error'] = 'クリスマスメッセージは設定されていませんでした。引き続き他のサービスをご利用ください。';
+		error_log('Error : select error ' . (__FILE__));
 	}
 } else {
-	$messages['message'] = 'クリスマスメッセージは設定されていませんでした。';
+	$messages['error'] = 'クリスマスメッセージは設定されていませんでした。引き続き他のサービスをご利用ください。';
 }
 ?>
 
@@ -45,13 +44,27 @@ if ($result !== false) {
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<title>クリスマスメッセージ</title>
+<title>ボトルメッセージ</title>
 </head>
 <body>
 <?php echo getFlash('error'); ?>
 <?php echo getFlash('flash'); ?>
-<h1>クリスマスメッセージ</h1>
-<p><?php echo h($messages['message']); ?></p>
-<a href="task_message.php">掲示板</a><br>
+<h1>ボトルメッセージ</h1>
+<?php if (!empty($messages['error'])) : ?>
+<p><?php echo $messages['error']; ?></p>
+<?php else : ?>
+<p>
+<?php echo h($present['name']); ?>
+<?php if ($present['class'] === 0) : ?>
+(運営)
+<?php else : ?>
+(<?php echo $present['class']; ?>期生)
+<?php endif; ?>
+さんからボトルメッセージが届きました
+</p>
+<p>ボトルメッセージ<br><?php echo $present['message']; ?></p>
+<?php endif; ?>
+<a href="task_message.php">課題応援掲示板</a><br>
+<a href="logout.php">ログアウト</a><br>
 </body>
 </html>

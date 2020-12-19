@@ -14,8 +14,7 @@ if ($stmt === false) {
 $matching_users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // クリスマステーブルからマッチングオフのユーザーidを取得
-//$sql = 'SELECT con1_christmas_messages.user_id, con1_users.name FROM con1_christmas_messages INNER JOIN con1_users ON con1_christmas_messages.user_id = con1_users.id WHERE con1_users.matching  = 0';
-$sql = 'SELECT con1_test_messages.user_id FROM con1_test_messages INNER JOIN con1_users ON con1_test_messages.user_id = con1_users.id WHERE con1_users.matching = 0';
+$sql = 'SELECT con1_christmas_messages.user_id FROM con1_christmas_messages INNER JOIN con1_users ON con1_christmas_messages.user_id = con1_users.id WHERE con1_users.matching  = 0';
 $stmt = $dbh->query($sql);
 if ($stmt === false) {
 	error_log('Error : select error ' . (__FILE__));
@@ -23,7 +22,7 @@ if ($stmt === false) {
 }
 $matching_off_users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// マッチングオフのクリスマスメッセージ交換相手を取得
+// マッチングオフのクリスマスメッセージ交換相手を決定
 $matching = [];
 $count = (int)count($matching_off_users);
 if ($count % 2 === 1) {
@@ -46,24 +45,24 @@ foreach ($matching_users as $user) {
 }
 
 // インサート用の配列
-$sql = 'INSERT INTO con1_tests(user_id, present_by) VALUES';
+$sql = 'INSERT INTO con1_christmas_exchanges(user_id, present_by) VALUES';
 
-$arySql1 = [];
+$array_sql1 = [];
 //行の繰り返し
-foreach($matching as $key1 => $val1){
-	$arySql2 = [];
+foreach($matching as $key1 => $value1){
+	$array_sql2 = [];
 	//列（カラム）の繰り返し
-	foreach($val1 as $key2 => $val2){
-		$arySql2[] = ':' . $key2 . $key1;
+	foreach($value1 as $key2 => $value2){
+		$array_sql2[] = ':' . $key2 . $key1;
 	}
-	$arySql1[] = '(' . implode(',', $arySql2) . ')';
+	$array_sql1[] = '(' . implode(',', $array_sql2) . ')';
 }
-$sql .= implode(',', $arySql1);
+$sql .= implode(',', $array_sql1);
 //bind処理
 $stmt = $dbh->prepare($sql);
-foreach($matching as $key1 => $val1){
-	foreach($val1 as $key2 => $val2){
-		$stmt->bindValue(':' . $key2 . $key1, $val2, PDO::PARAM_INT);
+foreach($matching as $key1 => $value1){
+	foreach($value1 as $key2 => $value2){
+		$stmt->bindValue(':' . $key2 . $key1, $value2, PDO::PARAM_INT);
 	}
 }
 $result = $stmt->execute();
