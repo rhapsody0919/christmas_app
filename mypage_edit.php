@@ -1,10 +1,11 @@
 <?php
 session_start();
-require_once (dirname(__FILE__). 'function.php');
+require_once (dirname(__FILE__). '/function.php');
 $user_id = $_SESSION['id'];
 if (!empty($_POST['message'])) {
-	if (mb_strlen($_POST['message']) <= 255) {
+	if (mb_strlen($_POST['message']) <= 255 && mb_strlen($_POST['message']) >= 30) {
 		if ((int)$_POST['matching'] === 0 || (int)$_POST['matching'] === 1) {
+			echo mb_strlen(_POST['message']);
 			$user_matching = $_POST['matching'];
 			$user_message = $_POST['message'];
 			$dbh = dbConnect();
@@ -29,10 +30,10 @@ if (!empty($_POST['message'])) {
 			$error_message['matching'] = "マッチング機能を選択してください";
 		}
 	} else {
-		$error_message['message'] = "クリスマスメッセージの文字数を255字以内で作成してください";
+		$error_message['message'] = "ボトルメッセージを30文字以上255字以内で作成してください";
 	}
 } else {
-	$error_message['message'] = "クリスマスメッセージを作成してください";
+	$error_message['message'] = "ボトルメッセージを作成してください";
 }
 
 ?>
@@ -46,6 +47,8 @@ if (!empty($_POST['message'])) {
 </head>
 
 <body>
+<h1>クリスマスメッセージ編集結果</h1>
+<p>
 <?php
 if (!empty($error_message['matching'])) {
 	echo $error_message['matching'];
@@ -53,6 +56,9 @@ if (!empty($error_message['matching'])) {
 	echo $error_message['message'];
 }
 ?>
+</p>
+<p><button onclick="location.href='mypage_edit_form.php'">編集する</button></p>
+<p><button onclick="location.href='mypage.php'">マイページに戻る</button></p>
 </body>
 
 </html>

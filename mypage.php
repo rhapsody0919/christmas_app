@@ -1,12 +1,12 @@
 <?php
 session_start();
 require_once (dirname(__FILE__). '/function.php');
+
 //ログイン時にdbから取得したデータを一時的に保存する
 $user_id = $_SESSION['id'];
 //var_dump($user_id);
 $dbh = dbConnect();
-
-//名前、何期生、マッチングのデータ取得
+//何期生、マッチングのデータ取得
 $sql1 = "SELECT * FROM con1_users WHERE id = :id";
 $stmt1 = $dbh->prepare($sql1);
 $stmt1->bindValue(':id', $user_id, PDO::PARAM_INT);
@@ -30,16 +30,20 @@ $christmas_message = $stmt2->fetch();
 </head>
 
 <body>
+<?php echo getFlash('error'); ?>
+<?php echo getFlash('flash'); ?>
 <h1>マイページ</h1>
 <p>名前:
 <?php
-echo  $user_info['name'];
+echo  h($user_info['name']);
 ?>
 </p>
 <p>何期生:
-<?php
-echo $user_info['class'] . '期生';
-?>
+<?php if((int)$user_info['class'] === 0) : ?>
+運営
+<?php elseif ((int)$user_info['class'] !== 0) : ?>
+<?php echo $user_info['class']; ?>期生
+<?php endif; ?>
 </p>
 <p>マッチング:
 <?php
@@ -51,13 +55,14 @@ if ((int)$user_info['matching'] === 1){
 }
 ?>
 </p>
-<p>クリスマスメッセージ:
+<p>ボトルメッセージ:
 <?php
-echo $christmas_message['message'];
+echo h($christmas_message['message']);
 ?>
 </p>
 <p><button onclick="location.href='mypage_edit_form.php'">編集する</button></p>
 <p><button onclick="location.href='task_message.php'">掲示板へ</button></p>
+<p><button onclick="location.href='logout.php'">ログアウト</button></p>
 </body>
 
 </html>
