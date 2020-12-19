@@ -84,6 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <p><?php if (!empty($error_messages['message'])) echo $error_messages['message']; ?></p>
 <input type="submit" value="編集する">
 </form><br>
-<a href="task_message.php">課題応援掲示板</a><br>
+<a href="task_message.php">課題応援掲示板に戻る</a><br>
 </body>
 </html>

@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <input type="hidden" name="task_message_id" value="<?php echo $task_message_id; ?>">
 <input type="submit" value="削除する">
 </form><br>
-<a href="task_message.php">課題応援掲示板</a><br>
+<a href="task_message.php">課題応援掲示板に戻る</a><br>
 </body>
 </html>
 
