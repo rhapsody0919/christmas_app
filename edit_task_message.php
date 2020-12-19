@@ -74,11 +74,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <h1>課題応援メッセージ編集</h1>
 <form action="edit_task_message.php" method="post">
 <input type="hidden" name="task_message_id" value="<?php echo $task_message_id; ?>">
-<label>タイトル<br>
+<label>タイトル<small>&nbsp;※3文字以上25文字以下</small><br>
 <input type="text" name="title" value="<?php echo $task_message['title']; ?>" $required>
 </label><br>
 <p><?php if (!empty($error_messages['title'])) echo $error_messages['title']; ?></p>
-<label>メッセージ<br>
+<label>メッセージ<small>&nbsp;※8文字以上255文字以下</small><br>
 <textarea name="message"><?php echo $task_message['message']; ?></textarea>
 </label><br>
 <p><?php if (!empty($error_messages['message'])) echo $error_messages['message']; ?></p>
