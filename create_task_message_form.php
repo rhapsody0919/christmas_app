@@ -19,7 +19,7 @@ notSetChristmasMessage();
 <label>タイトル *3文字以上25文字以下で入力<br>
 <input type="text" name="title" required>
 </label><br>
-<label>メッセージ　*225文字以下で入力<br>
+<label>メッセージ *225文字以下で入力<br>
 <textarea name="message" cols="60" rows="8" required></textarea>
 </label><br>
 <input type="submit" value="投稿">
