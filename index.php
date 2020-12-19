@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!doctype html>
 <html class="no-js h-100" lang="en">
 <head>
@@ -31,17 +34,9 @@
           </a>
         </nav>
       </div>
-      <form action="#" class="main-sidebar__search w-100 border-right d-sm-flex d-md-none d-lg-none">
-        <div class="input-group input-group-seamless ml-3">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <i class="fas fa-search"></i>
-            </div>
-          </div>
-          <input class="navbar-search form-control" type="text" placeholder="Search for something..." aria-label="Search"> </div>
-      </form>
       <div class="nav-wrapper">
         <ul class="nav flex-column">
+<?php if(!$_SESSION): ?>
           <li class="nav-item">
           <a class="nav-link " href="create_user.php">
             <span>ユーザー登録</span>
@@ -52,6 +47,7 @@
             <span>ログイン</span>
           </a>
           </li>
+<?php endif; ?>
           <li class="nav-item">
           <a class="nav-link active" href="mypage.php">
             <i class="material-icons">edit</i>
@@ -64,6 +60,13 @@
             <span>課題応援メッセージ掲示板</span>
           </a>
           </li>
+<?php if($_SESSION): ?>
+          <li class="nav-item">
+          <a class="nav-link " href="logout.php">
+            <span>ログアウト </span>
+          </a>
+          </li>
+<?php endif; ?>
         </ul>
       </div>
     </aside>

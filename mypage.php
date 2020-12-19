@@ -13,7 +13,7 @@ $stmt1->bindValue(':id', $user_id, PDO::PARAM_INT);
 $stmt1->execute();
 $user_info = $stmt1->fetch();
 
-//クリスマスメッセージの取得
+//ボトルメッセージの取得
 $sql2 = "SELECT * FROM con1_christmas_messages WHERE user_id = :user_id";
 $stmt2 = $dbh->prepare($sql2);
 $stmt2->bindValue(':user_id', $user_id, PDO::PARAM_INT);
@@ -39,58 +39,58 @@ $christmas_message = $stmt2->fetch();
 <body class="h-100">
 <div class="container-fluid">
   <div class="row">
-	<!-- Main Sidebar -->
-	<aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
-	  <div class="main-navbar">
-		<nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
-		  <a class="navbar-brand w-100 mr-0" href="index.php" style="line-height: 25px;">
-			<div class="d-table m-auto">
-			  <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="images/630.gif" alt="プロサーがサンタクロース">
-			  <span class="d-none d-md-inline ml-1">プロサーがサンタクロース</span>
-			</div>
-		  </a>
-		  <a class="toggle-sidebar d-sm-inline d-md-none d-lg-none">
-			<i class="material-icons">&#xE5C4;</i>
-		  </a>
-		</nav>
-	  </div>
-	  <form action="#" class="main-sidebar__search w-100 border-right d-sm-flex d-md-none d-lg-none">
-		<div class="input-group input-group-seamless ml-3">
-		  <div class="input-group-prepend">
-			<div class="input-group-text">
-			  <i class="fas fa-search"></i>
-			</div>
-		  </div>
-		  <input class="navbar-search form-control" type="text" placeholder="Search for something..." aria-label="Search"> </div>
-	  </form>
-	  <div class="nav-wrapper">
-		<ul class="nav flex-column">
-		  <li class="nav-item">
-		  <a class="nav-link " href="create_user.php">
-			<span>ユーザー登録</span>
-		  </a>
-		  </li>
-		  <li class="nav-item">
-		  <a class="nav-link " href="login.php">
-			<span>ログイン</span>
-		  </a>
-		  </li>
-		  <li class="nav-item">
-		  <a class="nav-link active" href="mypage.php">
-			<i class="material-icons">edit</i>
-			<span>マイページ</span>
-		  </a>
-		  </li>
-		  <li class="nav-item">
-		  <a class="nav-link " href="task_message.php">
-			<i class="material-icons">vertical_split</i>
-			<span>課題応援メッセージ掲示板</span>
-		  </a>
-		  </li>
-		</ul>
-	  </div>
-	</aside>
-	<!-- End Main Sidebar -->
+    <!-- Main Sidebar -->
+    <aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
+      <div class="main-navbar">
+        <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
+          <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
+            <div class="d-table m-auto">
+              <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="images/630.gif" alt="プロサーがサンタクロース">
+              <span class="d-none d-md-inline ml-1">プロサーがサンタクロース</span>
+            </div>
+          </a>
+          <a class="toggle-sidebar d-sm-inline d-md-none d-lg-none">
+            <i class="material-icons">&#xE5C4;</i>
+          </a>
+        </nav>
+      </div>
+      <div class="nav-wrapper">
+        <ul class="nav flex-column">
+<?php if(!$_SESSION): ?>
+          <li class="nav-item">
+          <a class="nav-link " href="create_user.php">
+            <span>ユーザー登録</span>
+          </a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link " href="login.php">
+            <span>ログイン</span>
+          </a>
+          </li>
+<?php endif; ?>
+          <li class="nav-item">
+          <a class="nav-link active" href="mypage.php">
+            <i class="material-icons">edit</i>
+            <span>マイページ</span>
+          </a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link " href="task_message.php">
+            <i class="material-icons">vertical_split</i>
+            <span>課題応援メッセージ掲示板</span>
+          </a>
+          </li>
+<?php if($_SESSION): ?>
+          <li class="nav-item">
+          <a class="nav-link " href="logout.php">
+            <span>ログアウト </span>
+          </a>
+          </li>
+<?php endif; ?>
+        </ul>
+      </div>
+    </aside>
+    <!-- End Main Sidebar -->
 	<main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
 	<div class="main-navbar sticky-top bg-white">
 	<div class="main-content-container container-fluid px-4">
@@ -132,13 +132,13 @@ if ((int)$user_info['matching'] === 1){
 }
 ?>
 							</p>
-							<p>クリスマスメッセージ:
+							<p>ボトルメッセージ:
 <?php
 echo $christmas_message['message'];
 ?>
 							</p>
-							<p><button class="btn btn-accent" href='mypage_edit_form.php'>編集する</button></p>
-							<p><button class="btn btn-accent" href='task_message.php'>掲示板へ</button></p>
+							<a class="btn btn-accent" href='mypage_edit_form.php'>編集する</a>
+							<a class="btn btn-accent" href='task_message.php'>掲示板へ</a>
 						</div>
 					  </div>
 					</li>
