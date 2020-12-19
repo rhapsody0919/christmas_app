@@ -106,7 +106,7 @@ function getMatchingOnUsers() {
 	}
 }
 
-//マッチングありに指定しているuserをDBから取得
+//userをIDによってDBから取得
 function getUserById($id) {
 	try {
 		$dbh = dbConnect();
