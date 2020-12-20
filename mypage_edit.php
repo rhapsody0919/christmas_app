@@ -38,7 +38,7 @@ if (!empty($_POST['message'])) {
 				header('Location: mypage.php');
 				exit;
 			}
-			setFlash('flash : ボトルメッセージを編集しました');
+			setFlash('flash', 'ボトルメッセージを編集しました');
 			header('Location: mypage.php');
 			exit;
 		} else {
