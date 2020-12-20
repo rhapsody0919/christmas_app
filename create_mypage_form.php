@@ -30,12 +30,12 @@ $user_id = $_SESSION['id'];
 </ul>
 <form action="create_mypage.php" method="post">
 <p>マッチング機能:
-<input type="radio" name="matching" value="1">ON
+<input type="radio" name="matching" value="1" checked="checked">ON
 <input type="radio" name="matching" value="0">OFF
 </p>
 <p>ボトルメッセージ:</p>
-<textarea name="message" cols="60" rows="8"></textarea>
-<p>*作成後、編集は可能です</p>
+<textarea name="message" cols="60" rows="8" required></textarea>
+<p>*23日まで編集は可能です</p>
 <p>
 <input type="submit" value="作成する">
 </p>
