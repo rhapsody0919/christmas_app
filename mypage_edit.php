@@ -7,42 +7,46 @@ notSetChristmasMessage();
 $user_id = $_SESSION['id'];
 if (!empty($_POST['message'])) {
 	if (mb_strlen($_POST['message']) <= 255 && mb_strlen($_POST['message']) >= 30) {
-		if ((int)$_POST['matching'] === 0 || (int)$_POST['matching'] === 1) {
-			echo mb_strlen(_POST['message']);
-			$user_matching = $_POST['matching'];
-			$user_message = $_POST['message'];
-			$dbh = dbConnect();
+		if (isset($_POST['matching'])) {
+			if ((int)$_POST['matching'] === 0 || (int)$_POST['matching'] === 1) {
+				echo mb_strlen(_POST['message']);
+				$user_matching = $_POST['matching'];
+				$user_message = $_POST['message'];
+				$dbh = dbConnect();
 
-		//マッチ機能のアップデート
-			$sql2 = "UPDATE con1_users SET matching =:matching WHERE id = :id";
-			$stmt2  = $dbh->prepare($sql2);
-			$stmt2->bindValue(':id', $user_id, PDO::PARAM_INT);
-			$stmt2->bindValue(':matching', $user_matching, PDO::PARAM_INT);
-			$result = $stmt2->execute();
-			if ($result === false) {
-				error_log('Error : update error ' . (__FILE__));
-				setFlash('error', 'システムエラー');
+			//マッチ機能のアップデート
+				$sql2 = "UPDATE con1_users SET matching =:matching WHERE id = :id";
+				$stmt2  = $dbh->prepare($sql2);
+				$stmt2->bindValue(':id', $user_id, PDO::PARAM_INT);
+				$stmt2->bindValue(':matching', $user_matching, PDO::PARAM_INT);
+				$result = $stmt2->execute();
+				if ($result === false) {
+					error_log('Error : update error ' . (__FILE__));
+					setFlash('error', 'システムエラー');
+					header('Location: mypage.php');
+					exit;
+				}
+
+			//ボトルメッセージのアップデート
+				$sql3 ="UPDATE con1_christmas_messages SET message =:message WHERE user_id =:user_id";
+				$stmt3 = $dbh->prepare($sql3);
+				$stmt3->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+				$stmt3->bindValue(':message', $user_message, PDO::PARAM_STR);
+				$result = $stmt3->execute();
+				if ($result === false) {
+					error_log('Error : update error ' . (__FILE__));
+					setFlash('error', 'システムエラー');
+					header('Location: mypage.php');
+					exit;
+				}
+				setFlash('flash', 'ボトルメッセージを編集しました');
 				header('Location: mypage.php');
 				exit;
+			} else {
+				$error_message['matching'] = 'マッチングON OFFを選択してください';
 			}
-
-		//ボトルメッセージのアップデート
-			$sql3 ="UPDATE con1_christmas_messages SET message =:message WHERE user_id =:user_id";
-			$stmt3 = $dbh->prepare($sql3);
-			$stmt3->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-			$stmt3->bindValue(':message', $user_message, PDO::PARAM_STR);
-			$result = $stmt3->execute();
-			if ($result === false) {
-				error_log('Error : update error ' . (__FILE__));
-				setFlash('error', 'システムエラー');
-				header('Location: mypage.php');
-				exit;
-			}
-			setFlash('flash', 'ボトルメッセージを編集しました');
-			header('Location: mypage.php');
-			exit;
 		} else {
-			$error_message['matching'] = "マッチング機能を選択してください";
+			$error_message['matching'] = 'マッチングON OFFを選択してください';
 		}
 	} else {
 		$error_message['message'] = "ボトルメッセージを30文字以上255字以内で作成してください";
