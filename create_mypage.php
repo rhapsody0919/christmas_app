@@ -37,14 +37,12 @@ if (!empty($_POST['message'])) {
 					header('Location: mypage.php');
 					exit;
 				}
-
+				setFlash('flash : ボトルメッセージを作成しました');
 				header('Location: mypage.php');
 				exit;
-			} else {
-				$error_message['message'] = 'ボトルメッセージを30文字以上255字以内で作成してください';
 			}
 		} else {
-			$error_message['message'] = 'マッチング機能を選択してください';
+			$error_message['message'] = 'ボトルメッセージを30文字以上255字以内で作成してください';
 		}
 	} else {
 		$error_message['message'] = 'マッチング機能を選択してください';

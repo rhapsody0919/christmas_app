@@ -35,7 +35,7 @@ $user_id = $_SESSION['id'];
 </p>
 <p>ボトルメッセージ:</p>
 <textarea name="message" cols="60" rows="8" required></textarea>
-<p>*23日まで編集は可能です</p>
+<p>*23日23時まで編集は可能です</p>
 <p>
 <input type="submit" value="作成する">
 </p>

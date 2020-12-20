@@ -53,6 +53,7 @@ $christmas_message = $stmt2->fetch();
 <p>ボトルメッセージ:<br>
 <textarea name="message" cols="60"  rows="8"><?php echo $christmas_message['message']; ?></textarea>
 </p>
+<p>*23日23時まで編集可能です</p>
 <p>
 <button onclick="location.href='mypage_edit.php'">変更する</button><br>
 </p>
