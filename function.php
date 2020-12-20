@@ -46,6 +46,7 @@ function unloginedSession() {
 	@session_start();
 	// ログインしていれば / に遷移
 	if (isset($_SESSION['id'])) {
+		setFlash('error', 'ログインしています');
 		header('Location: mypage.php');
 		exit;
 	}
@@ -54,6 +55,7 @@ function loginedSession() {
 	@session_start();
 	// ログインしていなければ /login.php に遷移
 	if (!isset($_SESSION['id'])) {
+		setFlash('error', 'ログインしてください');
 		header('Location: login.php');
 		exit;
 	}
@@ -181,7 +183,7 @@ function editableChristmasMessage() {
 	$target_day = '2020/12/23 23:00:00';
 	// 設定した日付以降だったら、切り替える
 	if (strtotime($today) > strtotime($target_day)) {
-		header('Location: christmas_mypage.php');
+		header('Location: mypage.php');
 		exit;
 	}
 }
@@ -206,13 +208,14 @@ function notSetChristmasMessage() {
 		$today = date('Y/m/d H:i:s');
 		$target_day = '2020/12/23 23:00:00';
 		if (strtotime($today) < strtotime($target_day)) {
+			setFlash('error', 'クリスマスメッセージを設定してください');
 			header('Location: create_mypage_form.php');
 			exit;
 		}
 	}
 }
 //クリスマスメッセージを設定していたら、マイページにリダイレクト
-function SetChristmasMessage() {
+function setChristmasMessage() {
 	@session_start();
 	$user_id = (int)$_SESSION['id'];
 	try {
@@ -228,6 +231,7 @@ function SetChristmasMessage() {
 		}
 	} catch (PDOException $e) {
 		error_log('Error : ' . $e->getMessage());
+		setFlash('error', 'クリスマスメッセージが設定されています。');
 		header('Location: mypage.php');
 		exit;
 	}
