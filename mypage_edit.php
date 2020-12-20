@@ -18,14 +18,26 @@ if (!empty($_POST['message'])) {
 			$stmt2  = $dbh->prepare($sql2);
 			$stmt2->bindValue(':id', $user_id, PDO::PARAM_INT);
 			$stmt2->bindValue(':matching', $user_matching, PDO::PARAM_INT);
-			$stmt2->execute();
+			$result = $stmt2->execute();
+			if ($result === false) {
+				error_log('Error : update error ' . (__FILE__));
+				setFlash('error', 'システムエラー');
+				header('Location: mypage.php');
+				exit;
+			}
 
 		//クリスマスメッセージのアップデート
 			$sql3 ="UPDATE con1_christmas_messages SET message =:message WHERE user_id =:user_id";
 			$stmt3 = $dbh->prepare($sql3);
 			$stmt3->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 			$stmt3->bindValue(':message', $user_message, PDO::PARAM_STR);
-			$stmt3->execute();
+			$result = $stmt3->execute();
+			if ($result === false) {
+				error_log('Error : update error ' . (__FILE__));
+				setFlash('error', 'システムエラー');
+				header('Location: mypage.php');
+				exit;
+			}
 
 			header('Location: mypage.php');
 			exit;

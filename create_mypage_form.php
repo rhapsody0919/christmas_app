@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once (dirname(__FILE__). '/function.php');
-loginedsession();
+loginedSession();
 editableChristmasMessage();
 setChristmasMessage();
 $user_id = $_SESSION['id'];

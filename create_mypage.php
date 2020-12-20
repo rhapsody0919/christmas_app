@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once (dirname(__FILE__). '/function.php');
-loginedsession();
+loginedSession();
 editableChristmasMessage();
 setChristmasMessage();
 $user_id = $_SESSION['id'];
@@ -16,14 +16,26 @@ if (!empty($_POST['message'])) {
 			$stmt = $dbh->prepare($sql);
 			$stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 			$stmt->bindValue(':message', $user_message, PDO::PARAM_STR);
-			$stmt->execute();
+			$result = $stmt->execute();
+			if ($result === false) {
+				error_log('Error : insert error ' . (__FILE__));
+				setFlash('error', 'システムエラー');
+				header('Location: mypage.php');
+				exit;
+			}
 
 			//マッチング登録
 			$sql2 = "UPDATE con1_users SET matching = :matching WHERE id = :id";
 			$stmt2 = $dbh->prepare($sql2);
 			$stmt2->bindValue(':id', $user_id, PDO::PARAM_INT);
-			$stmt2->bingValue(':matching', $user_matching, PDO::PARAM_INT);
-			$stmt2->execute();
+			$stmt2->bindValue(':matching', $user_matching, PDO::PARAM_INT);
+			$result = $stmt2->execute();
+			if ($result === false) {
+				error_log('Error : update error ' . (__FILE__));
+				setFlash('error', 'システムエラー');
+				header('Location: mypage.php');
+				exit;
+			}
 
 			header('Location: mypage.php');
 			exit;
