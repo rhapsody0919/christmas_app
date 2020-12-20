@@ -61,7 +61,6 @@ if (!empty($_POST['message'])) {
 <meta charset="UTF-8">
 <title>クリスマスメッセージ新規作成結果ページ</title>
 </head>
-
 <body>
 <h1>ボトルメッセージ新規作成結果</h1>
 <p>
@@ -73,5 +72,4 @@ if (!empty($error_message['message'])) {
 </p>
 <p><button onclick="location.href='create_mypage_form.php'">作成に戻る</button></p>
 </body>
-
 </html>
