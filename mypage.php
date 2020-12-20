@@ -165,7 +165,7 @@ $flash_success_msg = getFlash('flash');
 <?php echo $flash_error_msg; ?>
 </div>
 <?php endif; ?>
-
+<br>
 			<div class="row">
 			  <div class="col-lg-8">
 				<div class="card card-small mb-4">

@@ -156,6 +156,9 @@ if ($task_message === false) {
 タイトル：<?php echo h($task_message['title']); ?><br>
 本文：<?php echo h($task_message['message']); ?>
 </p>
+<div>
+							<a class="btn btn-danger" href='task_message.php'>課題応援メッセージ掲示板へ</a>
+</div>
 
 						</div>
 					  </div>

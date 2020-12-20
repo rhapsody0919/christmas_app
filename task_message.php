@@ -174,7 +174,9 @@ $flash_success_msg = getFlash('flash');
 	  <i class="fa fa-check mx-2"></i>
 <?php echo $flash_error_msg; ?>
 </div>
+<br>
 <?php endif; ?>
+<br>
 
             <!-- Default Light Table -->
             <div class="row">
