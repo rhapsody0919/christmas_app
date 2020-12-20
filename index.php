@@ -149,6 +149,43 @@ $messages_count = count(getAllTaskMessages()) + count(getAllBottleMessages());
         </div>
         <!-- End Small Stats Blocks -->
       </div>
+	  <!-- End Page Header -->
+			<div class="row">
+			  <div class="col-lg-8">
+				<div class="card card-small mb-4">
+				  <ul class="list-group list-group-flush">
+					<li class="list-group-item p-3">
+					  <div class="row">
+						<div class="col">
+<h6>使い方</h6>
+<ol>
+<li class="font-weight-bold">クリスマスの日にボトルメッセージを届けよう!</li>
+一人一通の特別なボトルメッセージを送ろう!
+誰に届くかはクリスマスまでのお楽しみ!<br>
+どんな内容を書くかは自由!<br>
+あなたの夢、プロサーを始めたきっかけ、誰にも言えない秘密。<br>
+あなただけの思いをボトルに込めよう！！<br>
+<br>
+<li class="font-weight-bold">マッチング機能</li>
+マッチングとは？<br>
+マッチングすることで、お互いに特別なクリスマス版ボトルメッセージを送り合うことが出来るよ！
+<br>マッチングした相手とは、Slack上でDMを交換したり、zoomをしたりしよう!
+忘れられないクリスマスになること間違いなし！今すぐあなたもマッチングON！
+<br>
+<br>
+<li class="font-weight-bold">課題応援メッセージ掲示板</li>
+プロサーのみんなに応援メッセージをプレゼントしよう！<br>
+同期のあの人へ。憧れのあの人に。頑張って欲しいあの人に。あの課題に取り組んでいる人へ。<br>
+あなたのメッセージが、みんなの頑張る力になる。
+</ol>
+
+						</div>
+					  </div>
+					</li>
+				  </ul>
+				</div>
+			  </div>
+			</div>
       </main>
     </div>
   </div>

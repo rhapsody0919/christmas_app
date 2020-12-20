@@ -239,27 +239,27 @@ $flash_success_msg = getFlash('flash');
 </select>
 </label>
 <br>
-<p><?php if (!empty($error_messages['class'])) echo $error_messages['class']; ?></p>
+<p class="text-danger font-weight-bold"><?php if (!empty($error_messages['class'])) echo $error_messages['class']; ?></p>
 <label>ニックネーム<small>&nbsp;※25文字以下</small><br>
 <input type="text" name="name" value="<?php if (!empty($_POST['name'])) echo $_POST['name']; ?>" required>
 </label><br>
-<p><?php if (!empty($error_messages['name'])) echo $error_messages['name']; ?></p>
+<p class="text-danger font-weight-bold"><?php if (!empty($error_messages['name'])) echo $error_messages['name']; ?></p>
 <label>パスワード<small>&nbsp;※8文字以上半角英数字</small><br>
 <input type="password" name="password1" value="<?php if (!empty($_POST['password1'])) echo $_POST['password1']; ?>" required>
 </label><br>
-<p><?php if (!empty($error_messages['password1'])) echo $error_messages['password1']; ?></p>
+<p class="text-danger font-weight-bold"><?php if (!empty($error_messages['password1'])) echo $error_messages['password1']; ?></p>
 <label>パスワード（確認用）<br>
 <input type="password" name="password2" required>
 </label><br>
-<p><?php if (!empty($error_messages['password2'])) echo $error_messages['password2']; ?></p>
+<p class="text-danger font-weight-bold"><?php if (!empty($error_messages['password2'])) echo $error_messages['password2']; ?></p>
 <label>SlackID<br>
 <input type="text" name="slack_id" value="<?php if (!empty($_POST['slack_id'])) echo $_POST['slack_id']; ?>" required>
 </label><br>
-<p><?php if (!empty($error_messages['slack_id'])) echo $error_messages['slack_id']; ?></p>
+<p class="text-danger font-weight-bold"><?php if (!empty($error_messages['slack_id'])) echo $error_messages['slack_id']; ?></p>
 <p><strong>SlackIDとは?</strong><br>Slackのシステム側でユーザーを一意に管理するために付与されたシステム用のIDです。<br>
 プロサーの<a href="https://procir.site/user/edit" target="_blank">プロフィール編集画面</a>から確認できます。
-<br>プロサーにSlackIDを登録していない方は、<a href="https://procir.site/contact/detail/94">SlackのメンバーID設定方法</a>をご覧ください。</p>
-<input type="submit" value="登録する">
+<br>プロサーにSlackIDを登録していない方は、<a href="https://procir.site/contact/detail/94" target="_blank">SlackのメンバーID設定方法</a>をご覧ください。</p>
+<input  class="btn btn-danger" type="submit" value="登録する">
 </form><br>
 
 						</div>

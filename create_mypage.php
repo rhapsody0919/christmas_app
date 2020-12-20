@@ -6,8 +6,8 @@ editableChristmasMessage();
 setChristmasMessage();
 $user_id = $_SESSION['id'];
 if (!empty($_POST['message'])) {
-	if (!empty($_POST['matching'])) {
-		if ((int)$_POST['matching'] === 0 || (int)$_POST['matching'] === 1) {
+	if (isset($_POST['matching'])) {
+		if ($_POST['matching'] === '0' || $_POST['matching'] === '1') {
 			if (mb_strlen($_POST['message']) <= 255 && mb_strlen($_POST['message']) >= 30) {
 				$user_message = $_POST['message'];
 				$user_matching = $_POST['matching'];
@@ -44,10 +44,10 @@ if (!empty($_POST['message'])) {
 				$error_message['message'] = 'ボトルメッセージを30文字以上255字以内で作成してください';
 			}
 		} else {
-			$error_message['message'] = 'マッチング機能を選択してください';
+			$error_message['message'] = 'マッチングON OFFを選択してください';
 		}
 	} else {
-		$error_message['message'] = 'マッチング機能を選択してください';
+		$error_message['message'] = 'マッチングON OFFを選択してください';
 	}
 } else {
 	$error_message['message'] ='ボトルメッセージを入力してください';
@@ -175,7 +175,7 @@ if (!empty($_POST['message'])) {
 					  <div class="row">
 						<div class="col">
 
-<div>
+<div class="text-danger font-weight-bold">
 		<?php
 		if (!empty($error_message['message'])) {
 			echo $error_message['message'];
@@ -184,7 +184,7 @@ if (!empty($_POST['message'])) {
 </div>
 <br>
 <div>
-<a class="btn btn-danger" href="create_mypage_form.php">作成に戻る</a><br>
+<a class="btn btn-danger" href="create_mypage_form.php?message=<?php if(!empty($_POST['message'])) echo $_POST['message']; ?>&matching=<?php if(isset($_POST['matching'])) echo $_POST['matching']; ?>">作成に戻る</a><br>
 </div>
 
 						</div>

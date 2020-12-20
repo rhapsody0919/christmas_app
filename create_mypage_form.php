@@ -5,6 +5,21 @@ loginedSession();
 editableChristmasMessage();
 setChristmasMessage();
 $user_id = $_SESSION['id'];
+
+$matching_on = 'checked';
+$matching_off= '';
+if (isset($_GET['matching'])) {
+	if ($_GET['matching'] === '1') {
+		$matching_on = 'checked';
+		$matching_off= '';
+	} elseif ($_GET['matching'] === '0') {
+		$matching_on = '';
+		$matching_off= 'checked';
+	}
+}
+
+$flash_error_msg = getFlash('error');
+$flash_success_msg = getFlash('flash');
 ?>
 
 <!doctype html>
@@ -120,6 +135,28 @@ $user_id = $_SESSION['id'];
 		</div>
 	  </div>
 	  <!-- End Page Header -->
+<!--フラッシュメッセージ(成功)-->
+<?php if (!empty($flash_success_msg)): ?>
+<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">×</span>
+	  </button>
+	  <i class="fa fa-check mx-2"></i>
+<?php echo $flash_success_msg; ?>
+</div>
+<?php endif; ?>
+
+<!--フラッシュメッセージ(失敗)-->
+<?php if (!empty($flash_error_msg)): ?>
+<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">×</span>
+	  </button>
+	  <i class="fa fa-check mx-2"></i>
+<?php echo $flash_error_msg; ?>
+</div>
+<?php endif; ?>
+<br>
 			<div class="row">
 			  <div class="col-lg-8">
 				<div class="card card-small mb-4">
@@ -130,6 +167,10 @@ $user_id = $_SESSION['id'];
 					<li class="list-group-item p-3">
 					  <div class="row">
 						<div class="col">
+<h6>あなたの思いをボトルに込めよう！</h6>
+<p>一人一通の特別なボトルメッセージを送ろう!
+誰に届くかはクリスマスまでのお楽しみ!<br>
+どんな内容を書くかは自由!</p>
 <ul>
 <li>プロサーを始めたきっかけ</li>
 <li>夢</li>
@@ -140,20 +181,23 @@ $user_id = $_SESSION['id'];
 <li>誰にも言えない秘密</li>
 </ul>
 <br>
+<p>ボトルメッセージ例 :
+私の夢は起業することです。そのために、プロサーで、プログラミングスキルを学び、開発にもチャレンジしたいです。</p>
+<br>
 
 <!-- form部品 -->
 <form action="create_mypage.php" method="post">
 <p>マッチング機能:
-<input type="radio" name="matching" value="1" checked="checked">ON
-<input type="radio" name="matching" value="0">OFF
+<input type="radio" name="matching" value="1" <?php echo $matching_on; ?>>ON
+<input type="radio" name="matching" value="0" <?php echo $matching_off; ?>>OFF
 </p>
 
 <div class="form-group">
-<label for="message">ボトルメッセージ</label>
+<label for="message">ボトルメッセージ<small>&nbsp;※30文字以上、255文字以下</small></label>
 <div class="input-group">
-<textarea id="message" class="form-control" name="message" cols="60" rows="8" required></textarea>
+<textarea id="message" class="form-control" name="message" cols="60" rows="8" required><?php if(!empty($_GET['message'])) echo $_GET['message']; ?></textarea>
 </div>
-<p>*23日23時まで編集は可能です</p>
+<p><small>※23日23時まで編集は可能です</small></p>
 </div>
 <p>
 <input class="btn btn-danger" type="submit" value="作成する">

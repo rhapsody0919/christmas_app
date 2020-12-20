@@ -174,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <p>タイトル：<?php echo h($task_message['title']); ?></p>
 <p>メッセージ：<?php echo h($task_message['message']); ?></p>
-<p>本当に削除しますか？</p>
+<p class="text-danger font-weight-bold">本当に削除しますか？</p>
 <form action="delete_task_message.php" method="post">
 <input type="hidden" name="task_message_id" value="<?php echo $task_message_id; ?>">
 <input class="btn btn-danger" type="submit" value="削除する">

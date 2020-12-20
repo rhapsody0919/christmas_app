@@ -27,8 +27,10 @@ $matching = [];
 $count = (int)count($matching_off_users);
 if ($count % 2 === 1) {
 	$arr_key_remain = array_rand($matching_off_users, 1);
-	$matching[] = ['user_id' => (int)$matching_off_users[$arr_key_remain]['user_id'], 'present_by' => (int)2244];
-	unset($matching_off_users[$arr_key_remain]);
+	//奇数だった場合の交換相手
+	$remaining = 19;
+	$matching[] = ['user_id' => (int)$matching_off_users[$arr_key_remain]['user_id'], 'present_by' => $remaining];
+	unset($matching_off_users[$remaining]);
 	$count = $count - 1;
 }
 $count = $count / 2;
