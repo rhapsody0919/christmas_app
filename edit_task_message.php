@@ -222,7 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </form><br>
 <!-- End form部品 -->
 <div>
-<a class="btn btn-danger" href="task_message.php">課題応援掲示板に戻る</a><br>
+<a class="btn btn-danger" href="task_message.php">課題応援メッセージ掲示板に戻る</a><br>
 </div>
 
 						</div>

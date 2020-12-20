@@ -180,7 +180,7 @@ if (!empty($_POST['message'])) {
 					<li class="list-group-item p-3">
 					  <div class="row">
 						<div class="col">
-
+<p class="text-danger font-weight-bold">
 <?php
 if (!empty($error_message['matching'])) {
 	echo $error_message['matching'];
@@ -188,7 +188,7 @@ if (!empty($error_message['matching'])) {
 	echo $error_message['message'];
 }
 ?>
-<br>
+</p>
 <a class="btn btn-danger" href="mypage_edit_form.php?message=<?php if (!empty($_POST['message'])) echo $_POST['message']; ?>&matching=<?php if (isset($_POST['matching'])) echo $_POST['matching']; ?>">編集に戻る</a>
 						</div>
 					  </div>

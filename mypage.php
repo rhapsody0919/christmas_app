@@ -207,7 +207,7 @@ echo h($christmas_message['message']);
 <?php else : ?>
 <p class="text-danger">※ボトルメッセージ登録期間は終了しました</p>
 <?php endif; ?>
-							<a class="btn btn-danger" href='task_message.php'>掲示板へ</a>
+							<a class="btn btn-danger" href='task_message.php'>課題応援メッセージ掲示板へ</a>
 						</div>
 					  </div>
 					</li>

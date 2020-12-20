@@ -175,7 +175,7 @@ if (!empty($_POST['message'])) {
 					  <div class="row">
 						<div class="col">
 
-<div>
+<div class="text-danger font-weight-bold">
 		<?php
 		if (!empty($error_message['message'])) {
 			echo $error_message['message'];
