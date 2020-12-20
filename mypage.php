@@ -196,7 +196,7 @@ if ((int)$user_info['matching'] === 1){
 }
 ?>
 							</p>
-<h5 class="card-title">登録したボトルメッセージ</h5>
+<h6 class="card-title">登録したボトルメッセージ</h6>
 <p class="card-text text-dark">
 <?php
 echo h($christmas_message['message']);
@@ -204,6 +204,8 @@ echo h($christmas_message['message']);
 							</p>
 <?php if (strtotime($today) < strtotime($target_day)) : ?>
 							<a class="btn btn-danger" href='mypage_edit_form.php'>編集する</a>
+<?php else : ?>
+<p class="text-danger">※ボトルメッセージ登録期間は終了しました</p>
 <?php endif; ?>
 							<a class="btn btn-danger" href='task_message.php'>掲示板へ</a>
 						</div>

@@ -147,9 +147,8 @@ $flash_success_msg = getFlash('flash');
 			  </div>
 			</div>
 
-
 <div>
-	<a class="btn btn-white" href="create_task_message_form.php">
+	<a class="btn btn-danger" href="create_task_message_form.php">
 新規作成はこちら
 </a>
 </div>
