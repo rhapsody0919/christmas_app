@@ -149,6 +149,17 @@ $christmas_message = $stmt2->fetch();
 					  <div class="row">
 						<div class="col">
 
+<h6>あなたの思いをボトルに込めよう！</h6>
+<ul>
+<li>プロサーを始めたきっかけ</li>
+<li>夢</li>
+<li>今頑張っていること</li>
+<li>五年後の自分へ</li>
+<li>感謝していること</li>
+<li>どんな１年だった</li>
+<li>誰にも言えない秘密</li>
+</ul>
+<br>
 <!-- form部品 -->
 <form action="mypage_edit.php" method="post">
 <div class="form-group">

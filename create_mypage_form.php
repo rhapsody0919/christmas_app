@@ -130,6 +130,7 @@ $user_id = $_SESSION['id'];
 					<li class="list-group-item p-3">
 					  <div class="row">
 						<div class="col">
+<h6>あなたの思いをボトルに込めよう！</h6>
 <ul>
 <li>プロサーを始めたきっかけ</li>
 <li>夢</li>
