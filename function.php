@@ -207,6 +207,38 @@ function updateBothJoinedByUuid($both_joined, $zoom_uuid) {
 	}
 }
 
+//全ての課題応援メッセージの取得
+function getAllTaskMessages() {
+	try {
+		$dbh = dbConnect();
+		$get_all_task_messages_sql = 'SELECT * FROM con1_task_messages';
+		$get_all_task_messages_stm = $dbh->prepare($get_all_task_messages_sql);
+		//SQL文実行
+		$get_all_task_messages_stm->execute();
+		$task_messages = $get_all_task_messages_stm->fetchAll(PDO::FETCH_ASSOC);
+		return $task_messages;
+	} catch (PDOException $e) {
+		$msg = 'Error : ' . $e->getMessage();
+		return false;
+	}
+}
+
+//全てのボトルメッセージの取得
+function getAllBottleMessages() {
+	try {
+		$dbh = dbConnect();
+		$get_all_bottle_messages_sql = 'SELECT * FROM con1_christmas_messages';
+		$get_all_bottle_messages_stm = $dbh->prepare($get_all_bottle_messages_sql);
+		//SQL文実行
+		$get_all_bottle_messages_stm->execute();
+		$bottle_messages = $get_all_bottle_messages_stm->fetchAll(PDO::FETCH_ASSOC);
+		return $bottle_messages;
+	} catch (PDOException $e) {
+		$msg = 'Error : ' . $e->getMessage();
+		return false;
+	}
+}
+
 
 //クリスマスメッセージを設定していなかったら、新規作成にリダイレクト
 function notSetChristmasMessage() {

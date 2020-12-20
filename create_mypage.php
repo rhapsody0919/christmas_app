@@ -40,7 +40,7 @@ if (mb_strlen($_POST['message']) > 255 || mb_strlen($_POST['message']) < 3) {
     <aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
       <div class="main-navbar">
         <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
-          <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
+          <a class="navbar-brand w-100 mr-0" href="index.php" style="line-height: 25px;">
             <div class="d-table m-auto">
               <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="images/630.gif" alt="プロサーがサンタクロース">
               <span class="d-none d-md-inline ml-1">プロサーがサンタクロース</span>
@@ -51,17 +51,9 @@ if (mb_strlen($_POST['message']) > 255 || mb_strlen($_POST['message']) < 3) {
           </a>
         </nav>
       </div>
-      <form action="#" class="main-sidebar__search w-100 border-right d-sm-flex d-md-none d-lg-none">
-        <div class="input-group input-group-seamless ml-3">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <i class="fas fa-search"></i>
-            </div>
-          </div>
-          <input class="navbar-search form-control" type="text" placeholder="Search for something..." aria-label="Search"> </div>
-      </form>
       <div class="nav-wrapper">
         <ul class="nav flex-column">
+<?php if(!$_SESSION): ?>
           <li class="nav-item">
           <a class="nav-link " href="create_user.php">
             <span>ユーザー登録</span>
@@ -72,8 +64,10 @@ if (mb_strlen($_POST['message']) > 255 || mb_strlen($_POST['message']) < 3) {
             <span>ログイン</span>
           </a>
           </li>
+<?php endif; ?>
+<?php if($_SESSION): ?>
           <li class="nav-item">
-          <a class="nav-link active" href="mypage.php">
+          <a class="nav-link" href="mypage.php">
             <i class="material-icons">edit</i>
             <span>マイページ</span>
           </a>
@@ -84,29 +78,51 @@ if (mb_strlen($_POST['message']) > 255 || mb_strlen($_POST['message']) < 3) {
             <span>課題応援メッセージ掲示板</span>
           </a>
           </li>
+          <li class="nav-item">
+          <a class="nav-link " href="logout.php">
+            <span>ログアウト </span>
+          </a>
+          </li>
+<?php endif; ?>
         </ul>
       </div>
     </aside>
     <!-- End Main Sidebar -->
-    <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
-    <div class="main-navbar sticky-top bg-white">
-    <div class="main-content-container container-fluid px-4">
-      <!-- Page Header -->
-      <div class="page-header row no-gutters py-4">
-        <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
-          <span class="text-uppercase page-subtitle">〜ボトルメッセージから始まる新しいつながり〜</span>
-          <h3 class="page-title">プロサーがサンタクロース</h3>
-        </div>
-      </div>
-      <!-- End Page Header -->
+	<main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+	<div class="main-navbar sticky-top bg-white">
+	<div class="main-content-container container-fluid px-4">
+	  <!-- Page Header -->
+	  <div class="page-header row no-gutters py-4">
+		<div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+		  <span class="text-uppercase page-subtitle">〜ボトルメッセージから始まる新しいつながり〜</span>
+		  <h3 class="page-title">プロサーがサンタクロース</h3>
+		</div>
+	  </div>
+	  <!-- End Page Header -->
+			<div class="row">
+			  <div class="col-lg-8">
+				<div class="card card-small mb-4">
+				  <ul class="list-group list-group-flush">
+					<li class="list-group-item p-3">
+					  <div class="row">
+						<div class="col">
+
 		<?php
 		if (!empty($error_message['message'])) {
 			echo $error_message['message'];
 		}
 		?>
-      </div>
-      </main>
-    </div>
+
+						</div>
+					  </div>
+					</li>
+				  </ul>
+				</div>
+			  </div>
+			</div>
+			<!-- End Default Light Table -->
+	  </main>
+	</div>
   </div>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -119,3 +135,4 @@ if (mb_strlen($_POST['message']) > 255 || mb_strlen($_POST['message']) < 3) {
   <script src="scripts/app/app-blog-overview.1.1.0.js"></script>
   </body>
   </html>
+

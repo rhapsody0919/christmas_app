@@ -67,8 +67,9 @@ $christmas_message = $stmt2->fetch();
           </a>
           </li>
 <?php endif; ?>
+<?php if($_SESSION): ?>
           <li class="nav-item">
-          <a class="nav-link active" href="mypage.php">
+          <a class="nav-link" href="mypage.php">
             <i class="material-icons">edit</i>
             <span>マイページ</span>
           </a>
@@ -79,7 +80,6 @@ $christmas_message = $stmt2->fetch();
             <span>課題応援メッセージ掲示板</span>
           </a>
           </li>
-<?php if($_SESSION): ?>
           <li class="nav-item">
           <a class="nav-link " href="logout.php">
             <span>ログアウト </span>
@@ -91,13 +91,45 @@ $christmas_message = $stmt2->fetch();
     </aside>
     <!-- End Main Sidebar -->
 	<main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
-	<div class="main-navbar sticky-top bg-white">
+	<div class="main-navbar sticky-top bg-success">
+            <!-- Main Navbar -->
+            <nav class="navbar align-items-stretch navbar-light flex-md-nowrap p-0">
+              <ul class="navbar-nav border-left flex-row ">
+                <li class="nav-item dropdown">
+                  <div class="dropdown-menu dropdown-menu-small">
+<?php if(!$_SESSION): ?>
+                    <a class="dropdown-item" href="create_user.php">
+                      ユーザー登録</a>
+                    <a class="dropdown-item" href="login.php">
+                      ログイン</a>
+<?php endif; ?>
+<?php if($_SESSION): ?>
+                    <a class="dropdown-item" href="mypage.php">
+                      <i class="material-icons">edit</i>マイページ</a>
+                    <a class="dropdown-item" href="task_message.php">
+                      <i class="material-icons">vertical_split</i>課題応援メッセージ掲示板</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item text-danger" href="#">
+                      <i class="material-icons text-danger">&#xE879;</i>ログアウト</a>
+                  </div>
+<?php endif; ?>
+                </li>
+              </ul>
+              <nav class="nav bg-white">
+                <a href="#" class="nav-link nav-link-icon toggle-sidebar d-md-inline d-lg-none text-center border-left" data-toggle="collapse" data-target=".header-navbar" aria-expanded="false" aria-controls="header-navbar">
+                  <i class="material-icons">&#xE5D2;</i>
+                </a>
+              </nav>
+            </nav>
+			<!-- End Navbat -->
 	<div class="main-content-container container-fluid px-4">
 	  <!-- Page Header -->
 	  <div class="page-header row no-gutters py-4">
 		<div class="col-12 col-sm-4 text-center text-sm-left mb-0">
-		  <span class="text-uppercase page-subtitle">〜ボトルメッセージから始まる新しいつながり〜</span>
-		  <h3 class="page-title">プロサーがサンタクロース</h3>
+		  <span class="text-uppercase page-subtitle text-white">〜ボトルメッセージから始まる新しいつながり〜</span>
+		  <h3 class="page-title text-white">プロサーがサンタクロース
+		  <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="images/630.gif" alt="プロサーがサンタクロース">
+			<h3>
 		</div>
 	  </div>
 	  <!-- End Page Header -->
@@ -112,7 +144,9 @@ $christmas_message = $stmt2->fetch();
 					  <div class="row">
 						<div class="col">
 
+<!-- form部品 -->
 <form action="mypage_edit.php" method="post">
+<div class="form-group">
 <p>名前:
 <?php echo $user_info['name']; ?>
 </p>
@@ -125,16 +159,21 @@ $christmas_message = $stmt2->fetch();
 <input type="radio" name="matching" value="0" checked="checked">OFF
 <?php endif; ?>
 </p>
-<p>ボトルメッセージ<br>
-<textarea name="message" cols="60"  rows="8"><?php echo $christmas_message['message']; ?></textarea>
-</p>
-<p>
-<input type="submit" class="btn btn-success" href='mypage_edit.php' value="変更する">
-</p>
+<label for="message">ボトルメッセージ</label>
+<div class="input-group">
+<textarea id="message" class="form-control" name="message" cols="60"  rows="8"><?php echo $christmas_message['message']; ?></textarea>
+</div>
+</div>
+<div>
+<input type="submit" class="btn btn-danger" href='mypage_edit.php' value="変更する">
+</div>
 </form>
-<p>
-<a class="btn btn-success" href='mypage.php'>マイページに戻る</a>
-</p>
+<!-- End form部品 -->
+
+<br>
+<div>
+<a class="btn btn-danger" href='mypage.php'>マイページに戻る</a>
+</div>
 						</div>
 					  </div>
 					</li>

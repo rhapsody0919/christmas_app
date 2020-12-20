@@ -9,6 +9,10 @@ $dbh = dbConnect();
 $sql = 'SELECT con1_users.name, con1_users.class, con1_task_messages.user_id, con1_task_messages.title, con1_task_messages.message, con1_task_messages.id FROM con1_users INNER JOIN con1_task_messages ON con1_users.id = con1_task_messages.user_id';
 $task_messages = $dbh->query($sql);
 
+//フラッシュメッセージの取得
+$flash_error_msg = getFlash('error');
+$flash_success_msg = getFlash('flash');
+
 ?>
 
 
@@ -59,8 +63,9 @@ $task_messages = $dbh->query($sql);
           </a>
           </li>
 <?php endif; ?>
+<?php if($_SESSION): ?>
           <li class="nav-item">
-          <a class="nav-link active" href="mypage.php">
+          <a class="nav-link" href="mypage.php">
             <i class="material-icons">edit</i>
             <span>マイページ</span>
           </a>
@@ -71,7 +76,6 @@ $task_messages = $dbh->query($sql);
             <span>課題応援メッセージ掲示板</span>
           </a>
           </li>
-<?php if($_SESSION): ?>
           <li class="nav-item">
           <a class="nav-link " href="logout.php">
             <span>ログアウト </span>
@@ -83,38 +87,101 @@ $task_messages = $dbh->query($sql);
     </aside>
     <!-- End Main Sidebar -->
 	<main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
-	<div class="main-navbar sticky-top bg-white">
+	<div class="main-navbar sticky-top bg-success">
+            <!-- Main Navbar -->
+            <nav class="navbar align-items-stretch navbar-light flex-md-nowrap p-0">
+              <ul class="navbar-nav border-left flex-row ">
+                <li class="nav-item dropdown">
+                  <div class="dropdown-menu dropdown-menu-small">
+<?php if(!$_SESSION): ?>
+                    <a class="dropdown-item" href="create_user.php">
+                      ユーザー登録</a>
+                    <a class="dropdown-item" href="login.php">
+                      ログイン</a>
+<?php endif; ?>
+<?php if($_SESSION): ?>
+                    <a class="dropdown-item" href="mypage.php">
+                      <i class="material-icons">edit</i>マイページ</a>
+                    <a class="dropdown-item" href="task_message.php">
+                      <i class="material-icons">vertical_split</i>課題応援メッセージ掲示板</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item text-danger" href="#">
+                      <i class="material-icons text-danger">&#xE879;</i>ログアウト</a>
+                  </div>
+<?php endif; ?>
+                </li>
+              </ul>
+              <nav class="nav bg-white">
+                <a href="#" class="nav-link nav-link-icon toggle-sidebar d-md-inline d-lg-none text-center border-left" data-toggle="collapse" data-target=".header-navbar" aria-expanded="false" aria-controls="header-navbar">
+                  <i class="material-icons">&#xE5D2;</i>
+                </a>
+              </nav>
+            </nav>
+			<!-- End Navbat -->
 	<div class="main-content-container container-fluid px-4">
 	  <!-- Page Header -->
 	  <div class="page-header row no-gutters py-4">
 		<div class="col-12 col-sm-4 text-center text-sm-left mb-0">
-		  <span class="text-uppercase page-subtitle">〜ボトルメッセージから始まる新しいつながり〜</span>
-		  <h3 class="page-title">プロサーがサンタクロース</h3>
+		  <span class="text-uppercase page-subtitle text-white">〜ボトルメッセージから始まる新しいつながり〜</span>
+		  <h3 class="page-title text-white">プロサーがサンタクロース
+		  <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="images/630.gif" alt="プロサーがサンタクロース">
+			<h3>
 		</div>
 	  </div>
 	  <!-- End Page Header -->
-<?php echo getFlash('error'); ?>
-<?php echo getFlash('flash'); ?>
-
-<div>
+			<div class="row">
+			  <div class="col-lg-8">
+				<div class="card card-small mb-4">
+				  <ul class="list-group list-group-flush">
+					<li class="list-group-item p-3">
+					  <div class="row">
+						<div class="col">
 	プログラミングを頑張る人に応援メッセージをプレゼントしよう！<br>
 	同期のあの人へ。あの課題に取り組んでいる人へ。<br>
 	あなたのメッセージが、あの人の頑張る力になる。<br>
-</div>
-<br>
+						</div>
+					  </div>
+					</li>
+				  </ul>
+				</div>
+			  </div>
+			</div>
+
 
 <div>
-	<a class="btn btn-success" href="create_task_message_form.php">
-新規作成
+	<a class="btn btn-white" href="create_task_message_form.php">
+新規作成はこちら
 </a>
 </div>
 <br>
+<!--フラッシュメッセージ(成功)-->
+<?php if (!empty($flash_success_msg)): ?>
+<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">×</span>
+	  </button>
+	  <i class="fa fa-check mx-2"></i>
+<?php echo $flash_success_msg; ?>
+</div>
+<?php endif; ?>
+
+<!--フラッシュメッセージ(失敗)-->
+<?php if (!empty($flash_error_msg)): ?>
+<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">×</span>
+	  </button>
+	  <i class="fa fa-check mx-2"></i>
+<?php echo $flash_error_msg; ?>
+</div>
+<?php endif; ?>
+
             <!-- Default Light Table -->
             <div class="row">
               <div class="col">
                 <div class="card card-small mb-4">
                   <div class="card-header border-bottom">
-                    <h6 class="m-0">課題応援掲示板</h6>
+                    <h6 class="m-0">課題応援メッセージ掲示板</h6>
                   </div>
                   <div class="card-body p-0 pb-3 text-center">
                     <table class="table mb-0">
