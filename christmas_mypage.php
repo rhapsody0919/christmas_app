@@ -8,6 +8,7 @@ loginedSession();
 
 $id = $_SESSION['id'];
 $name = $_SESSION['name'];
+$messages = [];
 $dbh = dbConnect();
 
 // クリスマスメッセージをもらった相手のidを取得
@@ -26,12 +27,27 @@ if ($result !== false) {
 		$user_id = $result['present_by'];
 	}
 	// クリスマスメッセージ、相手のユーザー情報を取得
-	$sql = 'SELECT con1_users.name, con1_users.class, con1_christmas_messages.message FROM con1_users INNER JOIN con1_christmas_messages ON con1_users.id = con1_christmas_messages.user_id WHERE con1_christmas_messages.user_id = :user_id';
+	$sql = 'SELECT con1_users.id, con1_users.name, con1_users.class, con1_christmas_messages.message FROM con1_users INNER JOIN con1_christmas_messages ON con1_users.id = con1_christmas_messages.user_id WHERE con1_christmas_messages.user_id = :present_id OR con1_christmas_messages.user_id = :user_id';
 	$stmt = $dbh->prepare($sql);
-	$stmt->bindValue(':user_id', $present_id, PDO::PARAM_INT);
+	$stmt->bindValue(':present_id', $present_id, PDO::PARAM_INT);
+	$stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 	$stmt->execute();
-	$present = $stmt->fetch();
-	if ($present === false) {
+	$present = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	if ($present !== false) {
+		// メッセージ数が正しいか
+		if (count($present) === 2) {
+			if ($present[0]['id'] === $user_id) {
+				$my_message = $present[0];
+				$present_message = $present[1];
+			} else {
+				$my_message = $present[1];
+				$present_message = $present[0];
+			}
+		} else {
+			$messages['error'] = 'クリスマスメッセージは設定されていませんでした。引き続き他のサービスをご利用ください。';
+			error_log('Error : メッセージ数エラー error ' . (__FILE__));
+		}
+	} else {
 		$messages['error'] = 'クリスマスメッセージは設定されていませんでした。引き続き他のサービスをご利用ください。';
 		error_log('Error : select error ' . (__FILE__));
 	}
@@ -114,7 +130,7 @@ $flash_success_msg = getFlash('flash');
     </aside>
     <!-- End Main Sidebar -->
 	<main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
-	<div class="main-navbar sticky-top bg-white">
+	<div class="main-navbar sticky-top bg-success">
             <!-- Main Navbar -->
             <nav class="navbar align-items-stretch navbar-light flex-md-nowrap p-0">
               <ul class="navbar-nav border-left flex-row ">
@@ -191,17 +207,51 @@ $flash_success_msg = getFlash('flash');
 <?php else : ?>
 <p>
 ボトルメッセージが届きました
-<p>
-<p>
-<?php echo h($present['name']); ?>
-<?php if ($present['class'] === 0) : ?>
+</p>
+			<div class="row">
+			  <div class="col-lg-8">
+				<div class="card card-small mb-4">
+				  <ul class="list-group list-group-flush">
+					<li class="list-group-item p-3">
+					  <div class="row">
+						<div class="col">
+<h6>
+<?php echo h($present_message['name']); ?>
+<?php if ($present_message['class'] === 0) : ?>
 (運営)
 <?php else : ?>
-(<?php echo $present['class']; ?>期生)
+(<?php echo $present_message['class']; ?>期生)
 <?php endif; ?>
 さんより
-</p>
-<p><?php echo $present['message']; ?></p>
+</h6>
+<p><?php echo $present_message['message']; ?></p>
+
+						</div>
+					  </div>
+					</li>
+				  </ul>
+				</div>
+			  </div>
+			</div>
+			<div class="row">
+			  <div class="col-lg-8">
+				<div class="card card-small mb-4">
+				  <ul class="list-group list-group-flush">
+					<li class="list-group-item p-3">
+					  <div class="row">
+						<div class="col">
+<h6>
+<?php echo h($my_message['name']); ?>さんが送ったメッセージ
+</h6>
+<p><?php echo $my_message['message']; ?></p>
+
+						</div>
+					  </div>
+					</li>
+				  </ul>
+				</div>
+			  </div>
+			</div>
 <?php endif; ?>
 <a class="btn btn-success" href="task_message.php">課題応援掲示板</a><br>
 
