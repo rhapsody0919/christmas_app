@@ -258,7 +258,7 @@ $flash_success_msg = getFlash('flash');
 <p><?php if (!empty($error_messages['slack_id'])) echo $error_messages['slack_id']; ?></p>
 <p><strong>SlackIDとは?</strong><br>Slackのシステム側でユーザーを一意に管理するために付与されたシステム用のIDです。<br>
 プロサーの<a href="https://procir.site/user/edit" target="_blank">プロフィール編集画面</a>から確認できます。
-<br>プロサーにSlackIDを登録していない方は、<a href="https://procir.site/contact/detail/94">SlackのメンバーID設定方法</a>をご覧ください。</p>
+<br>プロサーにSlackIDを登録していない方は、<a href="https://procir.site/contact/detail/94" target="_blank">SlackのメンバーID設定方法</a>をご覧ください。</p>
 <input  class="btn btn-danger" type="submit" value="登録する">
 </form><br>
 

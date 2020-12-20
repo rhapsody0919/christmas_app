@@ -196,7 +196,7 @@ if ((int)$user_info['matching'] === 1){
 }
 ?>
 							</p>
-<h5 class="card-title">ボトルメッセージ</h5>
+<h5 class="card-title">登録したボトルメッセージ</h5>
 <p class="card-text text-dark">
 <?php
 echo h($christmas_message['message']);
