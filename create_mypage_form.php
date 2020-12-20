@@ -5,6 +5,8 @@ loginedSession();
 editableChristmasMessage();
 setChristmasMessage();
 $user_id = $_SESSION['id'];
+$flash_error_msg = getFlash('error');
+$flash_success_msg = getFlash('flash');
 ?>
 
 <!doctype html>
@@ -120,6 +122,28 @@ $user_id = $_SESSION['id'];
 		</div>
 	  </div>
 	  <!-- End Page Header -->
+<!--フラッシュメッセージ(成功)-->
+<?php if (!empty($flash_success_msg)): ?>
+<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">×</span>
+	  </button>
+	  <i class="fa fa-check mx-2"></i>
+<?php echo $flash_success_msg; ?>
+</div>
+<?php endif; ?>
+
+<!--フラッシュメッセージ(失敗)-->
+<?php if (!empty($flash_error_msg)): ?>
+<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">×</span>
+	  </button>
+	  <i class="fa fa-check mx-2"></i>
+<?php echo $flash_error_msg; ?>
+</div>
+<?php endif; ?>
+<br>
 			<div class="row">
 			  <div class="col-lg-8">
 				<div class="card card-small mb-4">
@@ -141,6 +165,9 @@ $user_id = $_SESSION['id'];
 <li>誰にも言えない秘密</li>
 </ul>
 <br>
+<p>ボトルメッセージ例 :
+私の夢は起業することです。そのために、プロサーで、プログラミングスキルを学び、開発にもチャレンジしたいです。</p>
+<br>
 
 <!-- form部品 -->
 <form action="create_mypage.php" method="post">
@@ -150,7 +177,7 @@ $user_id = $_SESSION['id'];
 </p>
 
 <div class="form-group">
-<label for="message">ボトルメッセージ</label>
+<label for="message">ボトルメッセージ<small>&nbsp;※30文字以上、255文字以下</small></label>
 <div class="input-group">
 <textarea id="message" class="form-control" name="message" cols="60" rows="8" required></textarea>
 </div>

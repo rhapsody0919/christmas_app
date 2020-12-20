@@ -6,8 +6,8 @@ editableChristmasMessage();
 setChristmasMessage();
 $user_id = $_SESSION['id'];
 if (!empty($_POST['message'])) {
-	if (!empty($_POST['matching'])) {
-		if ((int)$_POST['matching'] === 0 || (int)$_POST['matching'] === 1) {
+	if (isset($_POST['matching'])) {
+		if ($_POST['matching'] === '0' || $_POST['matching'] === '1') {
 			if (mb_strlen($_POST['message']) <= 255 && mb_strlen($_POST['message']) >= 30) {
 				$user_message = $_POST['message'];
 				$user_matching = $_POST['matching'];
@@ -44,10 +44,10 @@ if (!empty($_POST['message'])) {
 				$error_message['message'] = 'ボトルメッセージを30文字以上255字以内で作成してください';
 			}
 		} else {
-			$error_message['message'] = 'マッチング機能を選択してください';
+			$error_message['message'] = 'マッチングON OFFを選択してください';
 		}
 	} else {
-		$error_message['message'] = 'マッチング機能を選択してください';
+		$error_message['message'] = 'マッチングON OFFを選択してください';
 	}
 } else {
 	$error_message['message'] ='ボトルメッセージを入力してください';
