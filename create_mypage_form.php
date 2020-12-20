@@ -5,6 +5,19 @@ loginedSession();
 editableChristmasMessage();
 setChristmasMessage();
 $user_id = $_SESSION['id'];
+
+$matching_on = 'checked';
+$matching_off= '';
+if (isset($_GET['matching'])) {
+	if ($_GET['matching'] === '1') {
+		$matching_on = 'checked';
+		$matching_off= '';
+	} elseif ($_GET['matching'] === '0') {
+		$matching_on = '';
+		$matching_off= 'checked';
+	}
+}
+
 $flash_error_msg = getFlash('error');
 $flash_success_msg = getFlash('flash');
 ?>
@@ -155,6 +168,9 @@ $flash_success_msg = getFlash('flash');
 					  <div class="row">
 						<div class="col">
 <h6>あなたの思いをボトルに込めよう！</h6>
+<p>一人一通の特別なボトルメッセージを送ろう!
+誰に届くかはクリスマスまでのお楽しみ!<br>
+どんな内容を書くかは自由!</p>
 <ul>
 <li>プロサーを始めたきっかけ</li>
 <li>夢</li>
@@ -172,16 +188,16 @@ $flash_success_msg = getFlash('flash');
 <!-- form部品 -->
 <form action="create_mypage.php" method="post">
 <p>マッチング機能:
-<input type="radio" name="matching" value="1" checked="checked">ON
-<input type="radio" name="matching" value="0">OFF
+<input type="radio" name="matching" value="1" <?php echo $matching_on; ?>>ON
+<input type="radio" name="matching" value="0" <?php echo $matching_off; ?>>OFF
 </p>
 
 <div class="form-group">
 <label for="message">ボトルメッセージ<small>&nbsp;※30文字以上、255文字以下</small></label>
 <div class="input-group">
-<textarea id="message" class="form-control" name="message" cols="60" rows="8" required></textarea>
+<textarea id="message" class="form-control" name="message" cols="60" rows="8" required><?php if(!empty($_GET['message'])) echo $_GET['message']; ?></textarea>
 </div>
-<p>*23日23時まで編集は可能です</p>
+<p><small>※23日23時まで編集は可能です</small></p>
 </div>
 <p>
 <input class="btn btn-danger" type="submit" value="作成する">

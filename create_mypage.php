@@ -184,7 +184,7 @@ if (!empty($_POST['message'])) {
 </div>
 <br>
 <div>
-<a class="btn btn-danger" href="create_mypage_form.php">作成に戻る</a><br>
+<a class="btn btn-danger" href="create_mypage_form.php?message=<?php if(!empty($_POST['message'])) echo $_POST['message']; ?>&matching=<?php if(isset($_POST['matching'])) echo $_POST['matching']; ?>">作成に戻る</a><br>
 </div>
 
 						</div>

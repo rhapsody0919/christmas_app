@@ -189,7 +189,7 @@ if (!empty($error_message['matching'])) {
 }
 ?>
 <br>
-<a class="btn btn-danger" href="mypage_edit_form.php">編集に戻る</a>
+<a class="btn btn-danger" href="mypage_edit_form.php?message=<?php if (!empty($_POST['message'])) echo $_POST['message']; ?>&matching=<?php if (isset($_POST['matching'])) echo $_POST['matching']; ?>">編集に戻る</a>
 						</div>
 					  </div>
 					</li>

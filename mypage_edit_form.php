@@ -23,6 +23,19 @@ $stmt2 = $dbh->prepare($sql2);
 $stmt2->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 $stmt2->execute();
 $christmas_message = $stmt2->fetch();
+
+//入力保持
+if (!empty($_GET['message'])) {
+	$christmas_message['message'] = $_GET['message'];
+}
+if (isset($_GET['matching'])) {
+	if ($_GET['matching'] === '1') {
+		$user_info['matching'] = 1;
+		$matching_on = 'checked';
+	} elseif ($_GET['matching'] === '0') {
+		$user_info['matching'] = 0;
+	}
+}
 ?>
 
 <!doctype html>
@@ -150,6 +163,10 @@ $christmas_message = $stmt2->fetch();
 						<div class="col">
 
 <h6>あなたの思いをボトルに込めよう！</h6>
+<p>一人一通の特別なボトルメッセージを送ろう!
+誰に届くかはクリスマスまでのお楽しみ!<br>
+どんな内容を書くかは自由!</p>
+
 <ul>
 <li>プロサーを始めたきっかけ</li>
 <li>夢</li>
@@ -175,11 +192,11 @@ $christmas_message = $stmt2->fetch();
 <input type="radio" name="matching" value="0" checked="checked">OFF
 <?php endif; ?>
 </p>
-<label for="message">ボトルメッセージ</label>
+<label for="message">ボトルメッセージ<small>&nbsp※30文字以上、255文字以下</small></label>
 <div class="input-group">
 <textarea id="message" class="form-control" name="message" cols="60"  rows="8"><?php echo $christmas_message['message']; ?></textarea>
 </div>
-<p>*23日23時まで編集可能です</p>
+<p><small>※23日23時まで編集可能です</small></p>
 </div>
 <div>
 <input type="submit" class="btn btn-danger" href='mypage_edit.php' value="変更する">
