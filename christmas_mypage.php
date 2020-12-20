@@ -190,15 +190,18 @@ $flash_success_msg = getFlash('flash');
 <p><?php echo $messages['error']; ?></p>
 <?php else : ?>
 <p>
+ボトルメッセージが届きました
+<p>
+<p>
 <?php echo h($present['name']); ?>
 <?php if ($present['class'] === 0) : ?>
 (運営)
 <?php else : ?>
 (<?php echo $present['class']; ?>期生)
 <?php endif; ?>
-さんからボトルメッセージが届きました
+さんより
 </p>
-<p>ボトルメッセージ<br><?php echo $present['message']; ?></p>
+<p><?php echo $present['message']; ?></p>
 <?php endif; ?>
 <a class="btn btn-success" href="task_message.php">課題応援掲示板</a><br>
 

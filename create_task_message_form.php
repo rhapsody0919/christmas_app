@@ -134,19 +134,17 @@ notSetChristmasMessage();
 <p>課題応援メッセージを贈ります!<br>
 タイトルとメッセージを入力してください。</p>
 <div class="form-group">
-<label for="title">タイトル</label>
+<label for="title">タイトル *3文字以上25文字以下</label>
 <div class="input-group">
 <input type="text" id="title" class="form-control" name="title" required>
 </div>
-<small>&nbsp;※3文字以上25文字以下</small>
 </div>
 
 <div class="form-group">
-<label for="message">メッセージ</label>
+<label for="message">メッセージ *8文字以上255文字以下</label>
 <div class="input-group">
 <textarea id="message" class="form-control" name="message" cols="60" rows="8" required></textarea>
 </div>
-<small>&nbsp;※8文字以上255文字以下</small>
 </div>
 <input class="btn btn-danger"type="submit" value="投稿">
 </form><br>
@@ -177,4 +175,4 @@ notSetChristmasMessage();
   <script src="scripts/shards-dashboards.1.1.0.min.js"></script>
   <script src="scripts/app/app-blog-overview.1.1.0.js"></script>
   </body>
-  <
+  </html>

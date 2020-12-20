@@ -1,12 +1,14 @@
 <?php
 session_start();
 require_once (dirname(__FILE__). '/function.php');
+loginedSession();
+afterChristmas();
+notSetChristmasMessage();
+
 //ログイン時にdbから取得したデータを一時的に保存する
 $user_id = $_SESSION['id'];
-//var_dump($user_id);
 $dbh = dbConnect();
-
-//名前、何期生、マッチングのデータ取得
+//何期生、マッチングのデータ取得
 $sql1 = "SELECT * FROM con1_users WHERE id = :id";
 $stmt1 = $dbh->prepare($sql1);
 $stmt1->bindValue(':id', $user_id, PDO::PARAM_INT);
@@ -19,6 +21,9 @@ $stmt2 = $dbh->prepare($sql2);
 $stmt2->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 $stmt2->execute();
 $christmas_message = $stmt2->fetch();
+
+$today = date('Y/m/d H:i:s');
+$target_day = '2020/12/23 23:00:00';
 
 //フラッシュメッセージの取得
 $flash_error_msg = getFlash('error');
@@ -173,7 +178,7 @@ $flash_success_msg = getFlash('flash');
 						<div class="col">
 							<p>名前:
 <?php
-echo  $user_info['name'];
+echo  h($user_info['name']);
 ?>
 							</p>
 							<p>何期生:
@@ -194,10 +199,12 @@ if ((int)$user_info['matching'] === 1){
 <h5 class="card-title">ボトルメッセージ</h5>
 <p class="card-text text-dark">
 <?php
-echo $christmas_message['message'];
+echo h($christmas_message['message']);
 ?>
 							</p>
+<?php if (strtotime($today) < strtotime($target_day)) : ?>
 							<a class="btn btn-danger" href='mypage_edit_form.php'>編集する</a>
+<?php endif; ?>
 							<a class="btn btn-danger" href='task_message.php'>掲示板へ</a>
 						</div>
 					  </div>

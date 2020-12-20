@@ -1,6 +1,9 @@
 <?php
 session_start();
 require_once (dirname(__FILE__). '/function.php');
+loginedSession();
+editableChristmasMessage();
+setChristmasMessage();
 $user_id = $_SESSION['id'];
 ?>
 
@@ -75,13 +78,45 @@ $user_id = $_SESSION['id'];
     </aside>
     <!-- End Main Sidebar -->
 	<main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
-	<div class="main-navbar sticky-top bg-white">
+	<div class="main-navbar sticky-top bg-success">
+            <!-- Main Navbar -->
+            <nav class="navbar align-items-stretch navbar-light flex-md-nowrap p-0">
+              <ul class="navbar-nav border-left flex-row ">
+                <li class="nav-item dropdown">
+                  <div class="dropdown-menu dropdown-menu-small">
+<?php if(!$_SESSION): ?>
+                    <a class="dropdown-item" href="create_user.php">
+                      ユーザー登録</a>
+                    <a class="dropdown-item" href="login.php">
+                      ログイン</a>
+<?php endif; ?>
+<?php if($_SESSION): ?>
+                    <a class="dropdown-item" href="mypage.php">
+                      <i class="material-icons">edit</i>マイページ</a>
+                    <a class="dropdown-item" href="task_message.php">
+                      <i class="material-icons">vertical_split</i>課題応援メッセージ掲示板</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item text-danger" href="#">
+                      <i class="material-icons text-danger">&#xE879;</i>ログアウト</a>
+                  </div>
+<?php endif; ?>
+                </li>
+              </ul>
+              <nav class="nav bg-white">
+                <a href="#" class="nav-link nav-link-icon toggle-sidebar d-md-inline d-lg-none text-center border-left" data-toggle="collapse" data-target=".header-navbar" aria-expanded="false" aria-controls="header-navbar">
+                  <i class="material-icons">&#xE5D2;</i>
+                </a>
+              </nav>
+            </nav>
+			<!-- End Navbat -->
 	<div class="main-content-container container-fluid px-4">
 	  <!-- Page Header -->
 	  <div class="page-header row no-gutters py-4">
 		<div class="col-12 col-sm-4 text-center text-sm-left mb-0">
-		  <span class="text-uppercase page-subtitle">〜ボトルメッセージから始まる新しいつながり〜</span>
-		  <h3 class="page-title">プロサーがサンタクロース</h3>
+		  <span class="text-uppercase page-subtitle text-white">〜ボトルメッセージから始まる新しいつながり〜</span>
+		  <h3 class="page-title text-white">プロサーがサンタクロース
+		  <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="images/630.gif" alt="プロサーがサンタクロース">
+			<h3>
 		</div>
 	  </div>
 	  <!-- End Page Header -->
@@ -104,13 +139,27 @@ $user_id = $_SESSION['id'];
 <li>どんな１年だった</li>
 <li>誰にも言えない秘密</li>
 </ul>
+<br>
+
+<!-- form部品 -->
 <form action="create_mypage.php" method="post">
-<textarea name="message" cols="60" rows="8"></textarea>
-<p>*編集は可能です</p>
+<p>マッチング機能:
+<input type="radio" name="matching" value="1" checked="checked">ON
+<input type="radio" name="matching" value="0">OFF
+</p>
+
+<div class="form-group">
+<label for="message">ボトルメッセージ</label>
+<div class="input-group">
+<textarea id="message" class="form-control" name="message" cols="60" rows="8" required></textarea>
+</div>
+<p>*23日23時まで編集は可能です</p>
+</div>
 <p>
-<input class="btn btn-success" type="submit" value="作成する">
+<input class="btn btn-danger" type="submit" value="作成する">
 </p>
 </form>
+<!-- End form部品 -->
 
 						</div>
 					  </div>
@@ -133,4 +182,4 @@ $user_id = $_SESSION['id'];
   <script src="scripts/shards-dashboards.1.1.0.min.js"></script>
   <script src="scripts/app/app-blog-overview.1.1.0.js"></script>
   </body>
-  <
+	</html>

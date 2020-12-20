@@ -1,6 +1,11 @@
 <?php
 session_start();
 require_once (dirname(__FILE__) . '/function.php');
+loginedSession();
+editableChristmasMessage();
+notSetChristmasMessage();
+
+
 //ログイン時の情報を一時保存し、取得
 $user_id = $_SESSION['id'];
 $dbh = dbConnect();
@@ -148,7 +153,7 @@ $christmas_message = $stmt2->fetch();
 <form action="mypage_edit.php" method="post">
 <div class="form-group">
 <p>名前:
-<?php echo $user_info['name']; ?>
+<?php echo h($user_info['name']); ?>
 </p>
 <p>マッチング機能:
 <?php if ((int)$user_info['matching'] === 1) : ?>
@@ -163,6 +168,7 @@ $christmas_message = $stmt2->fetch();
 <div class="input-group">
 <textarea id="message" class="form-control" name="message" cols="60"  rows="8"><?php echo $christmas_message['message']; ?></textarea>
 </div>
+<p>*23日23時まで編集可能です</p>
 </div>
 <div>
 <input type="submit" class="btn btn-danger" href='mypage_edit.php' value="変更する">
@@ -195,4 +201,5 @@ $christmas_message = $stmt2->fetch();
   <script src="scripts/shards-dashboards.1.1.0.min.js"></script>
   <script src="scripts/app/app-blog-overview.1.1.0.js"></script>
   </body>
-  <
+</html>
+
