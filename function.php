@@ -248,6 +248,7 @@ function editableChristmasMessage() {
 	$target_day = '2020/12/23 23:00:00';
 	// 設定した日付以降だったら、切り替える
 	if (strtotime($today) > strtotime($target_day)) {
+		setFlash('error', 'ボトルメッセージの作成は23日までです');
 		header('Location: mypage.php');
 		exit;
 	}
@@ -273,7 +274,7 @@ function notSetChristmasMessage() {
 		$today = date('Y/m/d H:i:s');
 		$target_day = '2020/12/23 23:00:00';
 		if (strtotime($today) < strtotime($target_day)) {
-			setFlash('error', 'クリスマスメッセージを設定してください');
+			setFlash('error', 'ボトルメッセージを設定してください');
 			header('Location: create_mypage_form.php');
 			exit;
 		}
@@ -296,7 +297,7 @@ function setChristmasMessage() {
 		}
 	} catch (PDOException $e) {
 		error_log('Error : ' . $e->getMessage());
-		setFlash('error', 'クリスマスメッセージが設定されています。');
+		setFlash('error', 'ボトルメッセージが設定されています。');
 		header('Location: mypage.php');
 		exit;
 	}
