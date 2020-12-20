@@ -1,6 +1,9 @@
 <?php
 session_start();
 require_once (dirname(__FILE__). '/function.php');
+loginedSession();
+afterChristmas();
+notSetChristmasMessage();
 
 //ログイン時にdbから取得したデータを一時的に保存する
 $user_id = $_SESSION['id'];
@@ -19,6 +22,9 @@ $stmt2 = $dbh->prepare($sql2);
 $stmt2->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 $stmt2->execute();
 $christmas_message = $stmt2->fetch();
+
+$today = date('Y/m/d H:i:s');
+$target_day = '2020/12/23 23:00:00';
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +66,9 @@ if ((int)$user_info['matching'] === 1){
 echo h($christmas_message['message']);
 ?>
 </p>
+<?php if (strtotime($today) < strtotime($target_day)) : ?>
 <p><button onclick="location.href='mypage_edit_form.php'">編集する</button></p>
+<?php endif; ?>
 <p><button onclick="location.href='task_message.php'">掲示板へ</button></p>
 <p><button onclick="location.href='logout.php'">ログアウト</button></p>
 </body>

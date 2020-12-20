@@ -51,12 +51,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <title>ログインフォーム</title>
 </head>
 <body>
-<p><?php echo getFlash('error'); ?></p>
+<?php echo getFlash('error'); ?>
+<?php echo getFlash('flash'); ?>
 <h1>ログイン</h1>
 <form action="login.php" method="post">
 <p>ニックネームとパスワードを入力してください</p>
 <label>ニックネーム<br>
-<input type="text" name="name" required>
+<input type="text" name="name" value="<?php if (!empty($_POST['name'])) echo $_POST['name']; ?>" required>
 </label><br>
 <p><?php if (!empty($error_messages['name'])) echo $error_messages['name']; ?></p>
 <label>パスワード<br>

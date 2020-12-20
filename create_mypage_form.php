@@ -1,6 +1,9 @@
 <?php
 session_start();
 require_once (dirname(__FILE__). '/function.php');
+loginedsession();
+editableChristmasMessage();
+setChristmasMessage();
 $user_id = $_SESSION['id'];
 ?>
 
@@ -16,6 +19,15 @@ $user_id = $_SESSION['id'];
 <?php echo getFlash('error'); ?>
 <?php echo getFlash('flash'); ?>
 <h1>ボトルメッセージ新規作成ページ</h1>
+<ul>
+<li>プロサーを始めたきっかけ</li>
+<li>夢</li>
+<li>今頑張っていること</li>
+<li>五年後の自分へ</li>
+<li>感謝していること</li>
+<li>どんな１年だった</li>
+<li>誰にも言えない秘密</li>
+</ul>
 <form action="create_mypage.php" method="post">
 <p>マッチング機能:
 <input type="radio" name="matching" value="1">ON

@@ -1,6 +1,9 @@
 <?php
 session_start();
-require_once (dirname(__FILE__). '/function.php');
+require_once (dirname(__FILE__) . '/function.php');
+loginedSession();
+editableChristmasMessage();
+notSetChristmasMessage();
 $user_id = $_SESSION['id'];
 if (!empty($_POST['message'])) {
 	if (mb_strlen($_POST['message']) <= 255 && mb_strlen($_POST['message']) >= 30) {
@@ -47,7 +50,7 @@ if (!empty($_POST['message'])) {
 </head>
 
 <body>
-<h1>クリスマスメッセージ編集結果</h1>
+<h1>ボトルメッセージ編集画面</h1>
 <p>
 <?php
 if (!empty($error_message['matching'])) {
@@ -57,8 +60,9 @@ if (!empty($error_message['matching'])) {
 }
 ?>
 </p>
-<p><button onclick="location.href='mypage_edit_form.php'">編集する</button></p>
 <p><button onclick="location.href='mypage.php'">マイページに戻る</button></p>
+<br>
+<a href="mypage_edit_form.php">編集に戻る</a>
 </body>
 
 </html>

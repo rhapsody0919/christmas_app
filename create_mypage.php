@@ -1,6 +1,9 @@
 <?php
 session_start();
 require_once (dirname(__FILE__). '/function.php');
+loginedsession();
+editableChristmasMessage();
+setChristmasMessage();
 $user_id = $_SESSION['id'];
 if (!empty($_POST['message'])) {
 	if (!empty($_POST['matching'])) {

@@ -1,6 +1,11 @@
 <?php
 session_start();
-require_once (dirname(__FILE__). '/function.php');
+require_once (dirname(__FILE__) . '/function.php');
+loginedSession();
+editableChristmasMessage();
+notSetChristmasMessage();
+
+
 //ログイン時の情報を一時保存し、取得
 $user_id = $_SESSION['id'];
 $dbh = dbConnect();
