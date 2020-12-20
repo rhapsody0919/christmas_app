@@ -38,7 +38,7 @@ if (!empty($_POST['message'])) {
 				header('Location: mypage.php');
 				exit;
 			}
-
+			setFlash('flash : ボトルメッセージを編集しました');
 			header('Location: mypage.php');
 			exit;
 		} else {
@@ -48,7 +48,7 @@ if (!empty($_POST['message'])) {
 		$error_message['message'] = "ボトルメッセージを30文字以上255字以内で作成してください";
 	}
 } else {
-	$error_message['message'] = "ボトルメッセージを作成してください";
+	$error_message['message'] = "ボトルメッセージを入力してください";
 }
 
 ?>
@@ -72,9 +72,8 @@ if (!empty($error_message['matching'])) {
 }
 ?>
 </p>
+<a href="mypage_edit_form.php">編集に戻る</a><br>
 <p><button onclick="location.href='mypage.php'">マイページに戻る</button></p>
-<br>
-<a href="mypage_edit_form.php">編集に戻る</a>
 </body>
 
 </html>
