@@ -108,7 +108,7 @@ function getMatchingOnUsers() {
 	}
 }
 
-//マッチングありに指定しているuserをDBから取得
+//userをIDによってDBから取得
 function getUserById($id) {
 	try {
 		$dbh = dbConnect();
@@ -176,6 +176,71 @@ function beforeChristmas() {
 		exit;
 	}
 }
+
+//matching_usersテーブルから全てのzoom uuidを取得
+function getAllZoomUUID() {
+	try {
+		$dbh = dbConnect();
+		$get_all_zoom_uuid_sql = 'SELECT zoom_uuid FROM con1_matching_users';
+		$get_all_zoom_uuid_stm = $dbh->prepare($get_all_zoom_uuid_sql);
+		//SQL文実行
+		$get_all_zoom_uuid_stm->execute();
+		$all_zoom_uuid = $get_all_zoom_uuid_stm->fetchAll(PDO::FETCH_ASSOC);
+		return $all_zoom_uuid;
+	} catch (PDOException $e) {
+		$msg = 'Error : ' . $e->getMessage();
+		return false;
+	}
+}
+
+//matching_usersテーブルのboth_joinedカラムのupdate
+function updateBothJoinedByUuid($both_joined, $zoom_uuid) {
+	try {
+		$dbh = dbConnect();
+		$update_sql = 'UPDATE con1_matching_users SET both_joined = ? WHERE zoom_uuid = ?';
+		$update_stm = $dbh->prepare($update_sql);
+		$update_stm->bindValue(1, $both_joined, PDO::PARAM_STR);
+		$update_stm->bindValue(2, $zoom_uuid, PDO::PARAM_STR);
+		$update_stm->execute();
+		return true;
+	} catch (PDOException $e) {
+		$msg = 'Error : ' . $e->getMessage();
+		return false;
+	}
+}
+
+//全ての課題応援メッセージの取得
+function getAllTaskMessages() {
+	try {
+		$dbh = dbConnect();
+		$get_all_task_messages_sql = 'SELECT * FROM con1_task_messages';
+		$get_all_task_messages_stm = $dbh->prepare($get_all_task_messages_sql);
+		//SQL文実行
+		$get_all_task_messages_stm->execute();
+		$task_messages = $get_all_task_messages_stm->fetchAll(PDO::FETCH_ASSOC);
+		return $task_messages;
+	} catch (PDOException $e) {
+		$msg = 'Error : ' . $e->getMessage();
+		return false;
+	}
+}
+
+//全てのボトルメッセージの取得
+function getAllBottleMessages() {
+	try {
+		$dbh = dbConnect();
+		$get_all_bottle_messages_sql = 'SELECT * FROM con1_christmas_messages';
+		$get_all_bottle_messages_stm = $dbh->prepare($get_all_bottle_messages_sql);
+		//SQL文実行
+		$get_all_bottle_messages_stm->execute();
+		$bottle_messages = $get_all_bottle_messages_stm->fetchAll(PDO::FETCH_ASSOC);
+		return $bottle_messages;
+	} catch (PDOException $e) {
+		$msg = 'Error : ' . $e->getMessage();
+		return false;
+	}
+}
+
 //23日以前でクリスマスメッセージを編集、新規作成可能か
 function editableChristmasMessage() {
 	$today = date('Y/m/d H:i:s');

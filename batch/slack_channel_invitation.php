@@ -6,7 +6,8 @@ require_once (dirname(__FILE__). '/../slack_api/channel_invitation.php');
 channelInvitation();
 
 //スラック通知
-$message = 'プロサークリスマスボトルメッセージにご参加ありがとうございます。' . "\n" .
-	'瓶にメッセージを入れて海原に送り出すように自分の想いや夢をメンバーに届けましょう!' . "\n" .
-	'このチャンネルでメッセージやマッチングの通知を行います!';
+$message = '「プロサーがサンタクロース」 -ボトルメッセージから始まる新しいつながり-にご参加ありがとうございます!' . "\n" .
+	'このチャンネルでメッセージやマッチングの通知を行います!' . "\n" .
+	'下記のURLより"瓶にメッセージを入れて海原に送り出すように"自分の想いや夢をメンバーに届けましょう!' . "\n" .
+	'https://procir-study.site/ishibashi331/christmas_app/login.php';
 slackNotification($message);
