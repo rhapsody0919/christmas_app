@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	//メッセージの入力
 	if (empty($_POST['message'])) {
 		$error_messages['message'] = '※メッセージを記入してください';
-	} elseif (mb_strlen($_POST['message']) > 255 || mb_strlen($_POST['message']) < 3) {
+	} elseif (mb_strlen($_POST['message']) > 255 || mb_strlen($_POST['message']) < 8) {
 		$error_messages['message'] = '※メッセージは3文字以上255文字以下で入力してください';
 	}
 

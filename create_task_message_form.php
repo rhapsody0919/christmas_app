@@ -16,10 +16,10 @@ notSetChristmasMessage();
 <form action="create_task_message.php" method="post">
 <p>課題応援メッセージを贈ります<br>
 タイトルとメッセージを入力してください</p>
-<label>タイトル *3文字以上25文字以下で入力<br>
+<label>タイトル *3文字以上25文字以下<br>
 <input type="text" name="title" required>
 </label><br>
-<label>メッセージ *225文字以下で入力<br>
+<label>メッセージ *8文字以上225文字以下<br>
 <textarea name="message" cols="60" rows="8" required></textarea>
 </label><br>
 <input type="submit" value="投稿">
