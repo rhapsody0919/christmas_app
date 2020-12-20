@@ -187,25 +187,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					<li class="list-group-item p-3">
 					  <div class="row">
 						<div class="col">
-
+<p>
+プロサーのみんなに応援メッセージをプレゼントしよう！<br>
+同期のあの人へ。憧れのあの人に。頑張って欲しいあの人に。あの課題に取り組んでいる人へ。<br>
+あなたのメッセージが、みんなの頑張る力になる。</p>
 <!-- form部品 -->
 <form action="edit_task_message.php" method="post">
 <div class="form-group">
 <label for="title">タイトル</label>
+<small>&nbsp;※3文字以上25文字以下</small>
 <div class="input-group">
 <input type="hidden" name="task_message_id" value="<?php echo $task_message_id; ?>">
 <input type="text" id="title" class="form-control" name="title" value="<?php echo $task_message['title']; ?>" $required>
 </div>
-<small>&nbsp;※3文字以上25文字以下</small>
 </div>
 <p><?php if (!empty($error_messages['title'])) echo $error_messages['title']; ?></p>
 
 <div class="form-group">
 <label for="message">メッセージ</label>
+<small>&nbsp;※8文字以上255文字以下</small>
 <div class="input-group">
 <textarea id="message" name="message" class="form-control" rows="10"><?php echo $task_message['message']; ?></textarea>
 </div>
-<small>&nbsp;※8文字以上255文字以下</small>
 </div>
 <p><?php if (!empty($error_messages['message'])) echo $error_messages['message']; ?></p>
 <input class="btn btn-danger" type="submit" value="編集する">

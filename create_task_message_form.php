@@ -132,7 +132,10 @@ notSetChristmasMessage();
 <!-- form部品 -->
 <form action="create_task_message.php" method="post">
 <p>課題応援メッセージを贈ります!<br>
-タイトルとメッセージを入力してください。</p>
+プロサーのみんなに応援メッセージをプレゼントしよう！<br>
+同期のあの人へ。憧れのあの人に。頑張って欲しいあの人に。あの課題に取り組んでいる人へ。<br>
+あなたのメッセージが、みんなの頑張る力になる。</p>
+<p class="font-weight-bold">タイトルとメッセージを入力してください。<p>
 <div class="form-group">
 <label for="title">タイトル *3文字以上25文字以下</label>
 <div class="input-group">
