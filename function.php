@@ -65,7 +65,7 @@ function setFlash($type, $message) {
 	$_SESSION[$type] = $message;
 }
 // フラッシュメッセージを取得
-function getflash($type) {
+function getFlash($type) {
 	@session_start();
 	$message = '';
 	if (!empty($_SESSION[$type])) {
