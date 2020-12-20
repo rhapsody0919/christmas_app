@@ -152,9 +152,11 @@ if ($task_message === false) {
 <?php endif; ?>
 の<?php echo h($task_message['name']); ?>さんより
 </h5>
-<p class="card-text d-inline-block mb-3">
+<p class="card-text d-inline-block mb-3 font-italic">
 タイトル：<?php echo h($task_message['title']); ?><br>
-本文：<?php echo h($task_message['message']); ?>
+</p>
+<p class="card-text d-inline-block mb-3">
+<?php echo h($task_message['message']); ?>
 </p>
 <div>
 							<a class="btn btn-danger" href='task_message.php'>課題応援メッセージ掲示板へ</a>

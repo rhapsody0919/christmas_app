@@ -172,7 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <p><?php if (!empty($error_messages['title'])) echo $error_messages['title']; ?></p>
 <p><?php if (!empty($error_messages['message'])) echo $error_messages['message']; ?></p>
 <div>
-<a class="btn btn-danger" href="create_task_message_form.php">戻る</a>
+<a class="btn btn-danger" href="create_task_message_form.php?title=<?php if (!empty($_POST['title'])) echo $_POST['title']; ?>&message=<?php if (!empty($_POST['message'])) echo $_POST['message']; ?>">戻る</a>
 </div>
 <br>
 <div>

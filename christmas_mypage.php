@@ -165,8 +165,9 @@ $flash_success_msg = getFlash('flash');
 	  <!-- Page Header -->
 	  <div class="page-header row no-gutters py-4">
 		<div class="col-12 col-sm-4 text-center text-sm-left mb-0">
-		  <span class="text-uppercase page-subtitle">〜ボトルメッセージから始まる新しいつながり〜</span>
-		  <h3 class="page-title">プロサーがサンタクロース</h3>
+		  <span class="text-uppercase page-subtitle text-white">〜ボトルメッセージから始まる新しいつながり〜</span>
+		  <h3 class="page-title text-white">プロサーがサンタクロース
+		  <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="images/630.gif" alt="プロサーがサンタクロース"></h3>
 		</div>
 	  </div>
 	  <!-- End Page Header -->
@@ -190,6 +191,7 @@ $flash_success_msg = getFlash('flash');
 	  <i class="fa fa-check mx-2"></i>
 <?php echo $flash_error_msg; ?>
 </div>
+<br>
 <?php endif; ?>
 			<div class="row">
 			  <div class="col-lg-8">
@@ -224,7 +226,7 @@ $flash_success_msg = getFlash('flash');
 <?php endif; ?>
 さんより
 </h6>
-<p><?php echo $present_message['message']; ?></p>
+<p><?php echo h($present_message['message']); ?></p>
 
 						</div>
 					  </div>
@@ -243,7 +245,7 @@ $flash_success_msg = getFlash('flash');
 <h6>
 <?php echo h($my_message['name']); ?>さんが送ったメッセージ
 </h6>
-<p><?php echo $my_message['message']; ?></p>
+<p><?php echo h($my_message['message']); ?></p>
 
 						</div>
 					  </div>
@@ -253,7 +255,7 @@ $flash_success_msg = getFlash('flash');
 			  </div>
 			</div>
 <?php endif; ?>
-<a class="btn btn-success" href="task_message.php">課題応援掲示板</a><br>
+<a class="btn btn-danger" href="task_message.php">課題応援掲示板</a><br>
 
 
 						</div>

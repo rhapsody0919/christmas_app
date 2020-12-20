@@ -26,7 +26,13 @@ if ($task_message === false) {
 	header('Location: task_message.php');
 	exit;
 }
-
+// 入力保持
+if (!empty($_POST['title'])) {
+	$task_message['title'] = $_POST['title'];
+}
+if (!empty($_POST['message'])) {
+	$task_message['message'] = $_POST['message'];
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	// バリデーションチェック
@@ -201,7 +207,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <input type="text" id="title" class="form-control" name="title" value="<?php echo $task_message['title']; ?>" $required>
 </div>
 </div>
-<p><?php if (!empty($error_messages['title'])) echo $error_messages['title']; ?></p>
+<p class="text-danger font-weight-bold"><?php if (!empty($error_messages['title'])) echo $error_messages['title']; ?></p>
 
 <div class="form-group">
 <label for="message">メッセージ</label>
@@ -210,7 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <textarea id="message" name="message" class="form-control" rows="10"><?php echo $task_message['message']; ?></textarea>
 </div>
 </div>
-<p><?php if (!empty($error_messages['message'])) echo $error_messages['message']; ?></p>
+<p class="text-danger font-weight-bold"><?php if (!empty($error_messages['message'])) echo $error_messages['message']; ?></p>
 <input class="btn btn-danger" type="submit" value="編集する">
 
 </form><br>

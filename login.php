@@ -196,11 +196,11 @@ $flash_success_msg = getFlash('flash');
 <label>ニックネーム<br>
 <input type="text" name="name" value="<?php if (!empty($_POST['name'])) echo $_POST['name']; ?>" required>
 </label><br>
-<p><?php if (!empty($error_messages['name'])) echo $error_messages['name']; ?></p>
+<p class="text-danger font-weight-bold"><?php if (!empty($error_messages['name'])) echo $error_messages['name']; ?></p>
 <label>パスワード<br>
 <input type="password" name="password" required>
 </label><br>
-<p><?php if (!empty($error_messages['password'])) echo $error_messages['password']; ?></p>
+<p class="text-danger font-weight-bold"><?php if (!empty($error_messages['password'])) echo $error_messages['password']; ?></p>
 <input class="btn btn-danger" type="submit" value="ログイン">
 </form><br>
 <a class="btn btn-danger" href="create_user.php">ユーザー新規登録</a><br>

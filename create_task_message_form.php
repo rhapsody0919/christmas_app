@@ -139,14 +139,14 @@ notSetChristmasMessage();
 <div class="form-group">
 <label for="title">タイトル *3文字以上25文字以下</label>
 <div class="input-group">
-<input type="text" id="title" class="form-control" name="title" required>
+<input type="text" id="title" class="form-control" name="title" value="<?php if (!empty($_GET['title'])) echo $_GET['title']; ?>" required>
 </div>
 </div>
 
 <div class="form-group">
 <label for="message">メッセージ *8文字以上255文字以下</label>
 <div class="input-group">
-<textarea id="message" class="form-control" name="message" cols="60" rows="8" required></textarea>
+<textarea id="message" class="form-control" name="message" cols="60" rows="8" required><?php if (!empty($_GET['message'])) echo $_GET['message']; ?></textarea>
 </div>
 </div>
 <input class="btn btn-danger"type="submit" value="投稿">
