@@ -2,7 +2,7 @@
 session_start();
 require_once (dirname(__file__). '/function.php');
 loginedSession();
-//notSetChristmasMessage();
+notSetChristmasMessage();
 
 // テーブルに表示
 $dbh = dbConnect();
