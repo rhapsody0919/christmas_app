@@ -26,9 +26,22 @@ $matching_off_users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $matching = [];
 $count = (int)count($matching_off_users);
 if ($count % 2 === 1) {
+	//奇数だった場合の交換相手を挿入
+	$remaining = 38;
+	$message = 'クリスマスメッセージ';
+	$sql = 'INSERT INTO con1_christmas_messages (user_id, message) VALUES (:user_id, :message)';
+	$stmt = $dbh->prepare($sql);
+	$stmt->bindValue(':user_id', $remaining, PDO::PARAM_INT);
+	$stmt->bindValue(':message', $message, PDO::PARAM_STR);
+	$result = $stmt->execute();
+	if ($result === false) {
+		error_log('Error : insert error ' . (__FILE__));
+		setFlash('error', 'システムエラー');
+		header('Location: mypage.php');
+		exit;
+	}
+	//交換相手を一人選択
 	$arr_key_remain = array_rand($matching_off_users, 1);
-	//奇数だった場合の交換相手
-	$remaining = 19;
 	$matching[] = ['user_id' => (int)$matching_off_users[$arr_key_remain]['user_id'], 'present_by' => $remaining];
 	unset($matching_off_users[$remaining]);
 	$count = $count - 1;
